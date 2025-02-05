@@ -10,9 +10,10 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(200))
     role = db.Column(db.Enum('trainer', 'client', name='role_enum'), default='client')
-    age = db.Column(db.Integer())
+    age = db.Column(db.Integer)
     height = db.Column(db.Numeric(5,2))
     goal = db.Column(db.Enum('gain', 'lose', name='goal_enum'))
+    goal_kg = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     is_active = db.Column(db.Boolean(), nullable=False, default=True)
@@ -32,6 +33,7 @@ class User(db.Model):
             "age": self.age,
             "height": str(self.height),
             "goal": self.goal,
+            "goal_kg": self.goal_kg,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "is_active": self.is_active
@@ -52,6 +54,34 @@ class Progress(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship(User, back_populates='progress')
+
+    def calculate_progress_percentage(self):
+        if not self.user:
+            raise ValueError('No hay un usuario asociado al progreso')
+        
+        user = self.user
+        if not user.goal or not user.goal_kg:
+            return 0
+
+        initial_progress = Progress.query.filter_by(user_id=user.id).order_by(Progress.date.asc()).first()
+        if not initial_progress:
+            return 0
+
+        print(f"User Goal: {self.user.goal}, Goal KG: {self.user.goal_kg}")
+        print(f"Initial Weight: {initial_progress.weight}, Current Weight: {self.weight}")
+
+        initial_weight = float(initial_progress.weight)
+        current_weight = float(self.weight)
+        goal_kg = user.goal_kg
+
+        if user.goal == 'gain':
+            percentage = ((current_weight - initial_weight) / (goal_kg - initial_weight)) * 100
+        elif user.goal == 'lose':
+            percentage = ((initial_weight - current_weight) / (initial_weight - goal_kg)) * 100
+        else:
+            raise ValueError('Objetivo no válido')
+
+        return max(0, min(percentage, 100))
 
     def __repr__(self):
         return f'<Progres {self.id} - {self.date} del usuario {self.user_id}>'
