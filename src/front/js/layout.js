@@ -9,6 +9,7 @@ import { Single } from "./pages/single";
 import PerfilCliente from "./pages/PerfilCliente";
 import { Register } from "./pages/register";
 
+import PerfilCliente from "./pages/PerfilCliente";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
