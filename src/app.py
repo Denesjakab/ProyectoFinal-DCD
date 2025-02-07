@@ -140,7 +140,7 @@ def login():
     
     access_token = create_access_token(identity=user.email)
 
-    return jsonify({ "token": access_token }), 200
+    return jsonify({ "token": access_token, "role": user.role }), 200
 
 @app.route('/private', methods=['GET'])
 @jwt_required()
