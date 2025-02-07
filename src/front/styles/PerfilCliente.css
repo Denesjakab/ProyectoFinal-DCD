@@ -1,0 +1,114 @@
+.perfil-cliente{
+    background-color:rgba(15, 15, 15, 0.992);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 100%;
+    margin: auto;
+}
+.parte-arriba{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.info-cliente{
+    width: 500px;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+}
+.datos-cliente{
+    margin-top: 60px;
+    width: 30%;
+    height: 600px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    margin-right: 300px;
+}
+
+.foto-cliente {
+    width: 100%;
+}
+
+.download-button, .cancel-button {
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.update-progres{
+    width: 40%; 
+    height: 20%;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 60px;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px;
+    border: 2px solid #FFD700;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: center;
+    color: aliceblue;
+}
+
+h2, h3 {
+    color: #FFD700;
+    margin-top: 20px;
+}
+h2{
+    margin-bottom: 60px;
+}
+p{
+    margin-bottom: 0;
+}
+
+.current-plan {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.header_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.line{
+    flex-grow: 1;
+    height: 10px;
+    background-color: #FFD700;
+}
+.header{
+    font-size: 18px;
+    font-weight: bold;
+    color: yellow;
+    text-transform: uppercase;
+    padding: 0 15px;
+    white-space: nowrap;
+}
+.programa-actual{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
