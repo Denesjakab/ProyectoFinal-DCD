@@ -1,4 +1,4 @@
-body {
+.perfil-cliente{
     background-color:rgba(15, 15, 15, 0.992);
     color: white;
     text-align: center;
@@ -47,7 +47,18 @@ body {
     font-weight: bold;
 }
 
-
+.update-progres{
+    width: 40%; 
+    height: 20%;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 60px;
+}
 
 input {
     width: 80%;

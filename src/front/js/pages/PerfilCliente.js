@@ -3,29 +3,30 @@ import "../../styles/PerfilCliente.css";
 
 const PerfilCliente = () => {
   return (
-    <div className="container">
+    <div className="container perfil-cliente">
       <div className="parte-arriba">
 
-      <div className="info-cliente">
-        <h3>Nombre del Cliente</h3>
-        <img src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Foto-del-cliente" className="foto-cliente" />
-        <p>Descarga aquí tu PLAN</p>
-        <button className="download-button">Download program</button>
-      </div>
+        <div className="info-cliente">
+          <h3>Nombre del Cliente</h3>
+          <img src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Foto-del-cliente" className="foto-cliente" />
+          <p>Descarga aquí tu PLAN</p>
+          <button className="download-button">Download program</button>
+        </div>
 
-      <div className="datos-cliente">
-        <h2>Datos de "Nombre del cliente"</h2>
-        <p>Weight</p>
-        <input type="text" placeholder="cm"/>
-        <p>Waist sixe</p>
-        <input type="text" placeholder="cm" />
-        <p>Abdominal size</p>
-        <input type="text" placeholder="cm" />
-        <p>Arm size</p>
-        <input type="text" placeholder="cm" />
-        <p>Leg size</p>
-        <input type="text" placeholder="cm" />
-      </div>
+        <div className="datos-cliente">
+          <h2>Datos de "Nombre del cliente"</h2>
+          <p>Weight</p>
+          <input type="text" placeholder="cm" /> 
+          <p>Waist sixe</p>
+          <input type="text" placeholder="cm" />
+          <p>Abdominal size</p>
+          <input type="text" placeholder="cm" />
+          <p>Arm size</p>
+          <input type="text" placeholder="cm" />
+          <p>Leg size</p>
+          <input type="text" placeholder="cm" />
+          <button className="update-progres">Update Progress</button>
+        </div>
 
       </div>
       <div className="header_container">

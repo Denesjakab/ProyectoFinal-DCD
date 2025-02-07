@@ -6,7 +6,6 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import PerfilCliente from "./pages/PerfilCliente";
 import { Register } from "./pages/register";
 
 import PerfilCliente from "./pages/PerfilCliente";
