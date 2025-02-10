@@ -133,21 +133,67 @@ def login():
     user = User.query.filter_by(email=body['email']).first()
     check_password = False
     if user:
-        check_password = bcrypt.check_password_hash(user.password, body['password'])
+        check_password = bcrypt.check_password_hash(user.password, str(body['password']))
 
     if user is None or check_password is False:
         return jsonify({'msg': 'Usario o contraseña no validos'}), 400
     
     access_token = create_access_token(identity=user.email)
 
-    return jsonify({ "token": access_token, "role": user.role }), 200
+    return jsonify({ 'token': access_token, 'role': user.role }), 200
+
 
 @app.route('/private', methods=['GET'])
 @jwt_required()
 def protected():
     current_user = get_jwt_identity()
-    return jsonify({"User": current_user}), 200
+    return jsonify({'User': current_user}), 200
 
+
+@app.route('/my-info', methods=['GET'])
+@jwt_required()
+def get_info_client():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email = mail_user).first()
+    progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+
+    return jsonify({'Info': (user.serialize(), progress.serialize())}), 200
+
+
+@app.route('/list-clients', methods=['GET'])
+@jwt_required()
+def get_list_clients():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    list_clients = db.session.query(User, Progress).join(Progress).filter(User.email != mail_user).all()
+    result = []
+    for user, progress in list_clients:
+        result.append({
+            "user": user.serialize(),
+            "progress": progress.serialize()
+        })
+
+    return jsonify(result), 200
+
+
+@app.route('/client/<int:client_id>', methods=['GET'])
+@jwt_required()
+def get_client_info(client_id):
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    client = User.query.get(client_id)
+    if not client:
+        return jsonify({'msg': 'Cliente no encontrado'}), 404
+
+    return jsonify({"Client": client.serialize()}), 200
 
 #------------------------------- Progress -----------------------------------
 VALID_GOAL = {'gain', 'lose'}
