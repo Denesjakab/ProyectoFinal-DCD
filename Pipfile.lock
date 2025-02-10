@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "06f49fbe748ce19a68c3a8afe126e8b2968391a733f159165157c2b63292e99e"
+
+            
+
+            "sha256": "4f0e9a772f04b621ff0313b7ecfa468af1526aa27df8bfcacac6955d499d352d"
+
         },
         "pipfile-spec": 6,
         "requires": {
@@ -102,6 +106,7 @@
             ],
             "index": "pypi",
             "version": "==1.6.1"
+
         },
         "flask-bcrypt": {
             "hashes": [
