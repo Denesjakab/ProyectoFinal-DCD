@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import homeImg from "../../img/training-828726_1920.jpg"
+import homeImgTwo from "../../img/training-828741_1280.jpg"
 import { Card } from "../component/card.jsx";
 import { Link, useParams } from "react-router-dom";
 
@@ -13,20 +14,19 @@ export const Home = () => {
 		<div className="home-body ">
 
 
-			<div className="jumbotron-home" style={{backgroundImage:`url(${homeImg})`,backgroundSize:"cover",backgroundPosition:"center"}}>
+			<div className="jumbotron-home" style={{backgroundImage:`url(${homeImgTwo})`,backgroundSize:"cover",backgroundPosition:"center"}}>
 
 				<div className="jumbotron-text text-light px-5 pt-5">
 					<div className="row">
 						<div classname="col-12">
-							<h1 className="display-4 pt-5 py-5 ">Transform your body,<br />
-								transform your life.
+							<h1 className="display-4 pt-5 py-5 ">Welcome!
 							</h1>
 							<p className="lead">Achieve your fitness goals with expert coaching tailored to your needs. Start your journey toward a healthier, stronger you today</p>
 							<hr class="my-4"></hr>
 							<p>Fitness is a personal journey that requires dedication and the right mindset. As your trainer, I work with you to understand your unique goals and challenges, creating a plan that supports both your immediate needs and long-term success. Whether you're starting out or refining your skills, every session is designed to push you further, building strength, confidence, and resilience that extend beyond the gym.</p>
 							<Link to="/register">
 							<p className="lead py-5">
-								<a className="btn bg-warning btn-lg" href="#" role="button">Join Now!</a>
+								<a className="btn bg-warning btn-lg" href="#" role="button">Your Area</a>
 							</p>
 							</Link>
 						</div>
@@ -40,22 +40,25 @@ export const Home = () => {
 			<div className="d-flex justify-content-around p-5">
 				
 				<Card 
-				title="Stay on Track with Real Results"
-				description="With personalized progress tracking, you’ll see exactly how far you’ve come. Regular assessments and updates ensure that you’re always moving toward your goals with clear, measurable results."
-				imageUrl="https://cdn.pixabay.com/photo/2016/11/22/22/24/adult-1850925_1280.jpg"
-				text="Achieve your goals. Sign up today!"
+				title="Why Tracking Your Progress is Key to Success"
+				description="Tracking your progress is essential for staying motivated and ensuring you're on the right path. Learn how tracking can boost your fitness journey and keep you accountable."
+				imageUrl="https://cdn.pixabay.com/photo/2021/01/03/03/43/man-5883500_1280.jpg"
+				link="https://www.example.com/nutrition-for-fitness-article"
+				linkName="Explore Nutrition Tips for Fitness"
 				/>
 				<Card 
-				title="Workouts Designed for You"
-				description="No two fitness journeys are the same. That’s why I create personalized workout plans based on your specific goals and fitness level, ensuring every exercise maximizes your results and keeps you challenged."
-				imageUrl="https://cdn.pixabay.com/photo/2021/11/10/06/23/workout-6783020_1280.jpg"
-				text="Train with us. Start now!"
+				title="The Power of Personalized Workouts"
+				description="Personalized workouts are designed to push you in the right direction based on your fitness level and goals. Discover why tailored plans are more effective than generic ones."
+				imageUrl="https://cdn.pixabay.com/photo/2021/01/04/06/21/man-5886574_1280.jpg"
+				link="https://www.example.com/personalized-workouts-article"
+				linkName="Learn About Custom Workouts"
 				/>		
 				<Card 
-				title="Fuel Your Body for Success"
-				description="Achieve optimal results with a nutrition plan that’s tailored just for you. Whether you're looking to lose weight, build muscle, or simply feel better, I provide nutrition guidance that aligns with your goals and lifestyle."
-				imageUrl="https://cdn.pixabay.com/photo/2019/08/13/11/37/extra-virgin-olive-oil-4403217_1280.jpg"
-				text="Transform your life! Join now"
+				title=" How Personalized Nutrition Fuels Your Goals"
+				description="Nutrition plays a critical role in reaching your fitness goals. Learn how a personalized diet plan can enhance your performance and overall well-being."
+				imageUrl="https://cdn.pixabay.com/photo/2019/09/05/11/20/fruit-4453801_960_720.jpg"
+				link="https://www.example.com/nutrition-for-fitness-article"
+				linkName="Explore Nutrition Tips for Fitness"
 				/>
 				
 				
