@@ -16,6 +16,7 @@ import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import { LandingPage } from "./pages/landingPage";
 import { RegisterData } from "./pages/registerData";
+import { HomeTrainer } from "./pages/homeTrainer";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +34,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<LandingPage />} path="/" />
                         <Route element={<Home />} path="/home" />
+                        <Route element={<HomeTrainer />} path="/homeTrainer" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<RegisterData />} path="/registerData" />
                         <Route element={<Login />} path="/login" />

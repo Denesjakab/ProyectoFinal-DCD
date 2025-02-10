@@ -65,7 +65,12 @@ export const LandingPage = () => {
                     />
 
 
-                </div> </>) : (<Home />)}
+                </div> </>) : (<Home />)
+                
+                // a ? b : (c ? d : e)
+                
+                
+                }
 
 
 
