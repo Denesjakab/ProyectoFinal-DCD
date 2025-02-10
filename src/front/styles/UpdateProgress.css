@@ -8,8 +8,8 @@ input{
     background-color: transparent;
     text-align: center;
     color: black;
-  
 }
+
  .box-update{
     display: flex;
     flex-direction: column; 
