@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext.js";
 import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
 
 export const Login = () => {
+
+    const { store, actions } = useContext(Context)
+    // const navigate = useNavigate()
+
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     return (
 
@@ -18,19 +25,30 @@ export const Login = () => {
 
                         <div className="form-group pb-5">
                             <label for="exampleInputEmail1" className="py-2">Email address</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                            <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                             value={email}
+                             onChange={(e) => { setEmail(e.target.value) }}
+                              />
                             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
 
                         <div className="form-group pb-5">
                             <label for="exampleInputPassword1" className="py-2">Password</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                            <input type="password" className="form-control" id="password" placeholder="Password" 
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value) }}/>
                         </div>
 
                         <div className="d-flex align-items-center">
                             <Link to="/home">
                                 <div className="py-5">
-                                    <button type="submit" className="btn btn-warning ">Log In</button>
+                                    <button type="submit" className="btn btn-warning "
+                                    onClick={() => {
+                                        actions.Login()
+                                        setEmail("")
+                                        setPassword("")
+                                    }}
+                                    >Log In</button>
                                 </div>
                             </Link>
 
