@@ -7,10 +7,14 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import CancelPlan from "./pages/CancelPlan";
+import { Register } from "./pages/register";
+
+import PerfilCliente from "./pages/PerfilCliente";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Login } from "./pages/login";
 
 //create your first component
 const Layout = () => {
@@ -27,10 +31,13 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
+                        <Route element={<Register />} path="/register" />
+                        <Route element={<Login />} path="/login" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>
+                        <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>

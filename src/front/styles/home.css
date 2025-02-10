@@ -5,3 +5,22 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+
+
+
+ .imageJumbotron {
+    width: 100%;
+    height: auto;
+ }
+
+ .home-body {
+    background-color: rgba(15, 15, 15, 0.992);
+ }
+
+ .outfit-text {
+    font-family: "Outfit", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
