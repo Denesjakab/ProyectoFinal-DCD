@@ -13,6 +13,7 @@ export const Card = (props) => {
                          <hr class="my-4"></hr>
                             <p className="card-text">{props.description}</p>
                         <div className=" text-warning fst-italic"><p>{props.text}</p></div> 
+                        <a href={props.link} className="card-link text-warning fst-italic ">{props.linkName}</a>
                      </div>
                 </div>
     )
