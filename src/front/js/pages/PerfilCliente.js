@@ -1,5 +1,6 @@
 import React from 'react'
 import "../../styles/PerfilCliente.css";
+import { Link } from 'react-router-dom';
 
 const PerfilCliente = () => {
   return (
@@ -25,7 +26,9 @@ const PerfilCliente = () => {
           <input type="text" placeholder="cm" />
           <p>Leg size</p>
           <input type="text" placeholder="cm" />
+          <Link to="/PerfilCliente/updateProgress">
           <button className="update-progres">Update Progress</button>
+          </Link>
         </div>
 
       </div>
@@ -40,7 +43,9 @@ const PerfilCliente = () => {
       <div className="programa-actual">
         <p>Foto del plan actual</p>
         <img src="https://images.pexels.com/photos/5387262/pexels-photo-5387262.jpeg?auto=compress&cs=tinysrgb&w=600" alt="programa-actual" className="current-plan" />
+        <Link to="/perfilcliente/Cancelplan">
         <button className="cancel-button">Cancel my gym membership</button>
+        </Link>
       </div>
     </div>
   );
