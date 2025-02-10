@@ -67,16 +67,19 @@ class Progress(db.Model):
         if not initial_progress:
             return 0
 
-        print(f"User Goal: {self.user.goal}, Goal KG: {self.user.goal_kg}")
-        print(f"Initial Weight: {initial_progress.weight}, Current Weight: {self.weight}")
+        
 
         initial_weight = float(initial_progress.weight)
         current_weight = float(self.weight)
         goal_kg = user.goal_kg
 
         if user.goal == 'gain':
+            if current_weight < initial_weight:
+                return 0
             percentage = ((current_weight - initial_weight) / (goal_kg - initial_weight)) * 100
         elif user.goal == 'lose':
+            if current_weight > initial_weight:
+                return 0
             percentage = ((initial_weight - current_weight) / (initial_weight - goal_kg)) * 100
         else:
             raise ValueError('Objetivo no válido')
