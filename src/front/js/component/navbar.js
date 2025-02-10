@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/navbar.css";
 import Logo from "../../img/logo.png"
-// import { NavbarLogged } from "./navbarLogged";
 export const Navbar = () => {
 
 	// const [isloggedin, setisLoggedIn] = useState(false)
