@@ -142,6 +142,7 @@ def login():
 
     return jsonify({ 'token': access_token, 'role': user.role }), 200
 
+
 @app.route('/private', methods=['GET'])
 @jwt_required()
 def protected():
