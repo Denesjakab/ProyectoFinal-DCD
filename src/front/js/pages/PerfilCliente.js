@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../styles/PerfilCliente.css";
+// import "../../styles/PerfilCliente.css";
 import { Link } from 'react-router-dom';
 
 const PerfilCliente = () => {
