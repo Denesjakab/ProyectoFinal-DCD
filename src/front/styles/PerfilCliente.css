@@ -27,7 +27,7 @@
 .datos-cliente{
     margin-top: 60px;
     width: 30%;
-    height: 600px;
+    height: 650px;
     background-color: #1e1e1e;
     border-radius: 10px;
     margin-right: 300px;
@@ -60,7 +60,7 @@
     margin-top: 60px;
 }
 
-input {
+.cm {
     width: 80%;
     padding: 8px;
     margin: 10px;
@@ -71,15 +71,21 @@ input {
     color: aliceblue;
 }
 
-h2, h3 {
+.datos-nomobre, .nombre-cliente {
     color: #FFD700;
     margin-top: 20px;
 }
-h2{
+.datos-nombre{
     margin-bottom: 60px;
+    margin-top: 5px;
 }
-p{
+.estadisticas{
     margin-bottom: 0;
+    color: white;
+}
+
+.descarga-aqui{
+    color: white;
 }
 
 .current-plan {
@@ -111,4 +117,7 @@ p{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.foto-plan{
+    color:white;
 }
