@@ -8,24 +8,24 @@ const PerfilCliente = () => {
       <div className="parte-arriba">
 
         <div className="info-cliente">
-          <h3>Nombre del Cliente</h3>
+          <h3 className='nombre-cliente'>Nombre del Cliente</h3>
           <img src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Foto-del-cliente" className="foto-cliente" />
-          <p>Descarga aquí tu PLAN</p>
+          <p className='descarga-aqui'>Descarga aquí tu PLAN</p>
           <button className="download-button">Download program</button>
         </div>
 
         <div className="datos-cliente">
-          <h2>Datos de "Nombre del cliente"</h2>
-          <p>Weight</p>
-          <input type="text" placeholder="cm" /> 
-          <p>Waist sixe</p>
-          <input type="text" placeholder="cm" />
-          <p>Abdominal size</p>
-          <input type="text" placeholder="cm" />
-          <p>Arm size</p>
-          <input type="text" placeholder="cm" />
-          <p>Leg size</p>
-          <input type="text" placeholder="cm" />
+          <h2 className='datos-nombre'>Datos de "Nombre del cliente"</h2>
+          <p className='estadisticas'>Weight</p>
+          <input className='cm' type="text" placeholder="cm" /> 
+          <p className='estadisticas'>Waist sixe</p>
+          <input className='cm'type="text" placeholder="cm" />
+          <p className='estadisticas'>Abdominal size</p>
+          <input className='cm' type="text" placeholder="cm" />
+          <p className='estadisticas'>Arm size</p>
+          <input className='cm' type="text" placeholder="cm" />
+          <p className='estadisticas'>Leg size</p>
+          <input className='cm' type="text" placeholder="cm" />
           <Link to="/PerfilCliente/updateProgress">
           <button className="update-progres">Update Progress</button>
           </Link>
@@ -41,7 +41,7 @@ const PerfilCliente = () => {
       </div>
 
       <div className="programa-actual">
-        <p>Foto del plan actual</p>
+        <p className='foto-plan'>Foto del plan actual</p>
         <img src="https://images.pexels.com/photos/5387262/pexels-photo-5387262.jpeg?auto=compress&cs=tinysrgb&w=600" alt="programa-actual" className="current-plan" />
         <Link to="/perfilcliente/Cancelplan">
         <button className="cancel-button">Cancel my gym membership</button>
