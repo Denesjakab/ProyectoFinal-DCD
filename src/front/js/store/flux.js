@@ -101,28 +101,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("role", data.role);
 				return data
 			},
-			// const login = async (username, password) => {
-			// 	const resp = await fetch(`https://your_api.com/login`, {
+			// register: async (email, password,name)=>{
+			// 	const dataRegister = {
+			// 		email: email,
+			// 		password: password,
+			// 		name: name
+			// 	}
+			// 	const resp = await fetch(process.env.BACKEND_URL + "/register", {
 			// 		method: "POST",
-			// 		headers: { "Content-Type": "application/json" },
-			// 		body: JSON.stringify({ username, password })
+			// 		headers: {"Content-Type":"application/json"},
+			// 		body: JSON.stringify(dataRegister)
 			// 	})
-
-			// 	if (!resp.ok) throw Error("There was a problem in the login request")
-
-			// 	if (resp.status === 401) {
-			// 		throw ("Invalid credentials")
-			// 	}
-			// 	else if (resp.status === 400) {
-			// 		throw ("Invalid email or password format")
-			// 	}
+			// 	if (!resp.ok) throw Error("There was a problem in the register request")
 			// 	const data = await resp.json()
-			// 	// Guarda el token en la localStorage
-			// 	// También deberías almacenar el usuario en la store utilizando la función setItem
-			// 	localStorage.setItem("jwt-token", data.token);
-
 			// 	return data
-			// },
+			// }
+			
 		}
 	};
 };

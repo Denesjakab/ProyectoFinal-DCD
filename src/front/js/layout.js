@@ -7,15 +7,14 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 
-import UpdateProgress from "./pages/UpdateProgress";
+import VistaEntrenador from "./pages/VistaEntrenador";
 
+import UpdateProgress from "./pages/UpdateProgress";
 import CancelPlan from "./pages/CancelPlan";
 import { Register } from "./pages/register";
-
 import PerfilCliente from "./pages/PerfilCliente";
 
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
@@ -47,10 +46,12 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
 
-                        <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
+                        <Route element={<VistaEntrenador/>} path="/trainer"/>
 
+                        <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
                         <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>
                         <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
+
 
                     </Routes>
                     <Footer />

@@ -1,3 +1,4 @@
+
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import homeImg from "../../img/training-828726_1920.jpg"
@@ -67,6 +68,7 @@ export const Register = () => {
     }, [store.email, store.password, store.name])
 
 
+
     return (
         <div className="d-flex justify-content-center home-body">
             <div className="container align-items-center row text-white">
@@ -88,11 +90,7 @@ export const Register = () => {
                             <label className="py-2">Password</label>
                             <input type="password" className="form-control" name="password" id="InputPassword" value={userData.password} onChange={handleChange} placeholder="Password" />
                         </div>
-
-
                         <div className="d-flex align-items-center">
-
-
                             <div className="py-">
                                 <button type="submit" className="btn btn-warning" onClick={sendData}>Join Now!</button>
                             </div>

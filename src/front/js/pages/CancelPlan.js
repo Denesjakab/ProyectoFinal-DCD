@@ -1,11 +1,11 @@
 import React from 'react'
-import "../../styles/CancelPlan.css"
+// import "../../styles/CancelPlan.css"
 
 const CancelPlan = () => {
   return (
     <div className='vista-cancelar'>
-      <h1>Why Do You Want To Cancel Your Plan?</h1>
-      <div className='opciones-generales'>
+      <h1 className='cancel-title'>Why Do You Want To Cancel Your Plan?</h1>
+      <div className='opciones-generales'> 
         <div className='opciones-izquierda'>
           <input type="checkbox" className="btn-check border" id="razon1" autoComplete="off" />
           <label className="btn btn-outline-warning" for="razon1">I am moving to a new location</label>
