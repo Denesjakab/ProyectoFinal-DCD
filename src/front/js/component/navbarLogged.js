@@ -18,19 +18,19 @@ export const Navbar = () => {
                     </Link>
 
 
-                    <div class="dropdown">
-                        <button class="btn btn btn-warning  ms-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className="dropdown">
+                        <button className="btn btn btn-warning  ms-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Name
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <Link to="/">
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                         </Link>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <Link to="/">
+                                <li><a className="dropdown-item" href="#">Logout</a></li>
+                            </Link>
 
                         </ul>
                     </div>
 
-                    
+
                     {/* <Link to="/login">
                         <button className="btn btn-warning  ms-3">Log out</button>
                     </Link> */}
