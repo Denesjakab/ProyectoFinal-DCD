@@ -6,10 +6,21 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import injectContext from "./store/appContext";
 
+import VistaEntrenador from "./pages/VistaEntrenador";
+
+import UpdateProgress from "./pages/UpdateProgress";
+import CancelPlan from "./pages/CancelPlan";
+import { Register } from "./pages/register";
+import PerfilCliente from "./pages/PerfilCliente";
+
+import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Login } from "./pages/login";
+import { LandingPage } from "./pages/landingPage";
+import { RegisterData } from "./pages/registerData";
+import { HomeTrainer } from "./pages/homeTrainer";
 
 //create your first component
 const Layout = () => {
@@ -25,10 +36,23 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        <Route element={<LandingPage />} path="/" />
+                        <Route element={<Home />} path="/home" />
+                        <Route element={<HomeTrainer />} path="/homeTrainer" />
+                        <Route element={<Register />} path="/register" />
+                        <Route element={<RegisterData />} path="/registerData" />
+                        <Route element={<Login />} path="/login" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
+
+                        <Route element={<VistaEntrenador/>} path="/trainer"/>
+
+                        <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
+                        <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>
+                        <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
+
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>
