@@ -8,7 +8,7 @@ import { FormEmail } from "../component/email.jsx";
 export const Login = () => {
 
     const { store, actions } = useContext(Context)
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     const [email, setEmail] = useState("")
@@ -40,17 +40,19 @@ export const Login = () => {
                         </div>
 
                         <div className="d-flex align-items-center">
-                            <Link to="/home">
+                            {/* <Link to="/home"> */}
                                 <div className="py-5">
                                     <button type="submit" className="btn btn-warning "
                                     onClick={() => {
-                                        actions.Login()
+                                        const login= { password: password, email: email}
+                                        actions.login(login)
                                         setEmail("")
                                         setPassword("")
+                                        navigate('/home')
                                     }}
                                     >Log In</button>
                                 </div>
-                            </Link>
+                            {/* </Link> */}
 
                             <Link to="/">
                                 <button className="btn btn-warning  ms-5">Home</button>
