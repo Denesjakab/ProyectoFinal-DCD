@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext.js";
 import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
 
 export const Register = () => {
 
-    // const { store, actions } = useContext(Context)
-    // const navigate = useNavigate()
+    const { store, actions } = useContext(Context)
+    const navigate = useNavigate()
 
 
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
-    // const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [name, setName] = useState("")
 
     return (
 
@@ -26,7 +26,7 @@ export const Register = () => {
 
                         <div className="form-group pb-3">
                             <label for="exampleInputName" className="py-2">Name</label>
-                            <input type="password" className="form-control" id="name" placeholder="Name"
+                            <input type="name" className="form-control" id="name" placeholder="Name"
 
                                 value={name}
                                 onChange={(e) => { setName(e.target.value) }} />

@@ -22,7 +22,7 @@ export const RegisterData = () => {
 
                         <div className="form-group pb-3">
                             <label for="exampleInputName" className="py-2">Age</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your age" />
+                            <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your age" />
                         </div>
                         <div className="form-group pb-3">
                             <label for="exampleInputEmail1" className="py-2">Height</label>
@@ -32,7 +32,7 @@ export const RegisterData = () => {
 
                         <div className="form-group pb-3">
                             <label for="exampleInputPassword1" className="py-2">Weight</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your Weight" />
+                            <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your Weight" />
                         </div>
                         <div className="form-group pb-3">
                             <label for="exampleInputName" className="py-2">Weight Objective</label>
@@ -43,7 +43,7 @@ export const RegisterData = () => {
                           </select>                         </div>
                         <div className="form-group pb-3">
                             <label for="exampleInputName" className="py-2">How much weight?</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="How much weight?"/>
+                            <input type="" className="form-control" id="exampleInputPassword1" placeholder="How much weight?"/>
 
                         </div>
 
@@ -71,32 +71,32 @@ export const RegisterData = () => {
 
                             <div className="form-group  pb-3">
                                 <label for="exampleInputName" className="py-2">Others</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Others" />
+                                <input type="" className="form-control" id="exampleInputPassword1" placeholder="Others" />
                             </div>
 
                             <div className="form-group pb-3">
                                 <label for="exampleInputName" className="py-2">Waist</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your waist measurement" />
+                                <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your waist measurement" />
                             </div>
                             <div className="form-group pb-3">
                                 <label for="exampleInputEmail1" className="py-2">Abdomen</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your abdomen measurement" />
+                                <input type="" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your abdomen measurement" />
 
                             </div>
 
                             <div className="form-group pb-3">
                                 <label for="exampleInputPassword1" className="py-2">Arm</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your arm measurement" />
+                                <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your arm measurement" />
 
                             </div>
 
                             <div className="form-group pb-3">
                                 <label for="exampleInputName" className="py-2">Leg</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your leg measurement" />
+                                <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your leg measurement" />
                             </div>
                             <div className="form-group pb-4">
                                 <label for="exampleInputName" className="py-2">Photo</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your photo" />
+                                <input type="" className="form-control" id="exampleInputPassword1" placeholder="Enter your photo" />
                             </div>
 
 
