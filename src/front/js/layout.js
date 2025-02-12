@@ -7,6 +7,11 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 
+import EntrenadorCLIENTE from "./pages/EntrenadorCLIENTE";
+import injectContext from "./store/appContext";
+
+
+
 import VistaEntrenador from "./pages/VistaEntrenador";
 
 import UpdateProgress from "./pages/UpdateProgress";
@@ -45,12 +50,12 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
-
+                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/>
                         <Route element={<VistaEntrenador/>} path="/trainer"/>
-
                         <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
                         <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>
                         <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
+
 
 
                     </Routes>
