@@ -6,6 +6,8 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import UploadClientProgram from "./pages/UploadClientProgram";
+import injectContext from "./store/appContext";
 
 import VistaEntrenador from "./pages/VistaEntrenador";
 
@@ -53,6 +55,7 @@ const Layout = () => {
                         <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
 
 
+                        <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>
