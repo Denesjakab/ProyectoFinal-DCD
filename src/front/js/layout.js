@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import UploadClientProgram from "./pages/UploadClientProgram";
+import EntrenadorCLIENTE from "./pages/EntrenadorCLIENTE";
 import injectContext from "./store/appContext";
 
 import VistaEntrenador from "./pages/VistaEntrenador";
@@ -56,6 +57,7 @@ const Layout = () => {
 
 
                         <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
+                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>

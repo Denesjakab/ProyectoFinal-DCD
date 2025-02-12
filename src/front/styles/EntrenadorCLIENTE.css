@@ -1,0 +1,76 @@
+.entrenador-cliente {
+    background-color: rgba(15, 15, 15, 0.992);
+}
+
+.cabecero {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.datos-especificos {
+    color: white;
+    font-size: 30px;
+}
+
+#titulo-especifico {
+    color: white;
+}
+
+#fotoPerfil {
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.medida {
+    color: white;
+    width: 80%;
+    padding: 8px;
+    margin: 10px;
+    border: 2px solid yellow;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.medidas-especificas {
+    margin-top: 60px;
+    width: 60%;
+    height: 650px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 60px auto;
+}
+
+.boton-funciones {
+    background-color: rgba(15, 15, 15, 0.992);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.cancel-member,
+.upload-program {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 60px;
+}
