@@ -26,17 +26,17 @@ export const Login = () => {
                         <div className="form-group pb-5">
                             <label for="exampleInputEmail1" className="py-2">Email address</label>
                             <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
-                             value={email}
-                             onChange={(e) => { setEmail(e.target.value) }}
-                              />
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value) }}
+                            />
                             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
 
                         <div className="form-group pb-5">
                             <label for="exampleInputPassword1" className="py-2">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="Password" 
-                            value={password}
-                            onChange={(e) => { setPassword(e.target.value) }}/>
+                            <input type="password" className="form-control" id="password" placeholder="Password"
+                                value={password}
+                                onChange={(e) => { setPassword(e.target.value) }} />
                         </div>
 
                         <div className="d-flex align-items-center">
