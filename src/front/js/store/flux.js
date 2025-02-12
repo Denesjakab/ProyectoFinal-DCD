@@ -13,7 +13,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			user: {
+				email: "",
+				password: "",
+				name: ""
+			},
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -49,14 +54,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			},
-			login: async (email, password) => {
-				// const email= 'celia.bcn28@gmail.com'
-				// const password ='8264'
-				const dataLogin = { 
-					"email": email,
-					"password":password
+
+			setUser: (data) => {
+				const store = getStore();
+				setStore({ ...store, ...data });
+			},
+
+			clearUser: () => {
+				setStore({ email: "", password: "", name: "" });
+			},
+
+			register: async (email, password, name) => {
+				const resp = await fetch(process.env.BACKEND_URL + "/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password, name })
+				})
+
+				if (!resp.ok) throw Error("Hubo un problema con la petición de /register")
+
+				if (resp.status === 400) {
+					throw ("Hubo un problema con los datos enviados para el registro")
 				}
-				// const url = 'https://studious-space-meme-pjg46j5xjxxx3xww-3000.app.github.dev/login'
+
+				const data = await resp.json()
+				return data
+			},
+
+
+			login: async (email, password) => {
+				const dataLogin = {
+					"email": email,
+					"password": password
+				}
 				const resp = await fetch(process.env.BACKEND_URL + "/login", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -64,10 +94,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				if (!resp.ok) throw Error("There was a problem in the login request")
 				const data = await resp.json()
-			console.log(data)
+				console.log(data)
 				// Guarda el token en la localStorage
 				// También deberías almacenar el usuario en la store utilizando la función setItem
-				localStorage.setItem("jwt-token", data.token);
+				localStorage.setItem("token", data.token);
 				localStorage.setItem("role", data.role);
 				return data
 			},

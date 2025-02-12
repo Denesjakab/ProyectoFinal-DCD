@@ -15,35 +15,35 @@ export const RegisterData = () => {
                 <h1 className="d-flex justify-content-center text-white pb-2 ">Welcome!</h1>
                 <p className="d-flex justify-content-center text-white fw-light  pb-3 ">Enter your data to keep better track of your journey</p>
 
-                
+
                 <div className="d-flex align-items-end container text-white">
 
                     <div className=" col-6 p-5 ">
 
                         <div className="form-group pb-3">
-                            <label for="exampleInputName" className="py-2">Age</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your age" />
+                            <label className="py-2">Age</label>
+                            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your age" />
                         </div>
                         <div className="form-group pb-3">
-                            <label for="exampleInputEmail1" className="py-2">Height</label>
+                            <label className="py-2">Height</label>
                             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your height" />
 
                         </div>
 
                         <div className="form-group pb-3">
-                            <label for="exampleInputPassword1" className="py-2">Weight</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your Weight" />
+                            <label className="py-2">Weight</label>
+                            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your Weight" />
                         </div>
                         <div className="form-group pb-3">
-                            <label for="exampleInputName" className="py-2">Weight Objective</label>
-                            <select className="form-select text-muted" aria-label="Default select example">
-                            <option selected>Weight objective</option>
-                            <option value="1">Win</option>
-                            <option value="2">Lose</option>
-                          </select>                         </div>
+                            <label className="py-2">Weight Objective</label>
+                            <select className="form-select text-muted" aria-label="Default select example" placeholder="Weight objective">
+                                <option value="">-</option>
+                                <option value="1">Win</option>
+                                <option value="2">Lose</option>
+                            </select>                         </div>
                         <div className="form-group pb-3">
-                            <label for="exampleInputName" className="py-2">How much weight?</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="How much weight?"/>
+                            <label className="py-2">How much weight?</label>
+                            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="How much weight?" />
 
                         </div>
 
@@ -70,44 +70,36 @@ export const RegisterData = () => {
                         <div className=" p-5  ">
 
                             <div className="form-group  pb-3">
-                                <label for="exampleInputName" className="py-2">Others</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Others" />
+                                <label className="py-2">Others</label>
+                                <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Others" />
                             </div>
 
                             <div className="form-group pb-3">
-                                <label for="exampleInputName" className="py-2">Waist</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your waist measurement" />
+                                <label className="py-2">Waist</label>
+                                <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your waist measurement" />
                             </div>
                             <div className="form-group pb-3">
-                                <label for="exampleInputEmail1" className="py-2">Abdomen</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your abdomen measurement" />
-
-                            </div>
-
-                            <div className="form-group pb-3">
-                                <label for="exampleInputPassword1" className="py-2">Arm</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your arm measurement" />
+                                <label className="py-2">Abdomen</label>
+                                <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your abdomen measurement" />
 
                             </div>
 
                             <div className="form-group pb-3">
-                                <label for="exampleInputName" className="py-2">Leg</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your leg measurement" />
+                                <label className="py-2">Arm</label>
+                                <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your arm measurement" />
+
+                            </div>
+
+                            <div className="form-group pb-3">
+                                <label className="py-2">Leg</label>
+                                <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your leg measurement" />
                             </div>
                             <div className="form-group pb-4">
-                                <label for="exampleInputName" className="py-2">Photo</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter your photo" />
+                                <label className="py-2">Photo</label>
+                                <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter your photo" />
                             </div>
-
-
-
-
-
                         </div>
-
                     </div>
-
-
                 </div>
             </form>
         </div>
