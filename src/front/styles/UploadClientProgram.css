@@ -1,0 +1,33 @@
+.upload-program{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.archivo{
+    color: white;
+    width: 50%;
+    padding: 8px;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 50px;
+}
+.sube-archivo{
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 60px;
+}
