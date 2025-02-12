@@ -33,6 +33,30 @@ const VistaEntrenador = () => {
                         )
                     })
                     }
+                    <div className='cliente'>
+                        <p><strong>Client Name</strong></p>
+                        <Link to="/trainer/cliente">
+                        <button className='view-details'>View details</button>
+                        </Link>
+                    </div>
+                    <div className='cliente'>
+                    <p><strong>Client Name</strong></p>
+                    <Link to="/trainer/cliente">
+                        <button className='view-details'>View details</button>
+                        </Link>
+                    </div>
+                    <div className='cliente'>
+                    <p><strong>Client Name</strong></p>
+                    <Link to="/trainer/cliente">
+                        <button className='view-details'>View details</button>
+                        </Link>
+                    </div>
+                    <div className='cliente'>
+                        <p><strong>Client Name</strong></p>
+                        <Link to="/trainer/cliente">
+                        <button className='view-details'>View details</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
