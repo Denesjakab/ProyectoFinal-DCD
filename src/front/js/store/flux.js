@@ -19,6 +19,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				password: "",
 				name: ""
 			},
+			clients: [],
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -83,23 +85,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			login: async (email, password) => {
-				const dataLogin = {
-					"email": email,
-					"password": password
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/login", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ email, password })
+					})
+					if (!resp.ok) {
+						const errorData = await resp.json()
+						throw new Error(errorData.message || "Error en la autenticación")
+					}
+					const data = await resp.json()
+					localStorage.setItem("token", data.token);
+					localStorage.setItem("role", data.role);
+					return data;
+				} catch (error) {
+					console.error("Error en login:", error.message)
+					return false
 				}
-				const resp = await fetch(process.env.BACKEND_URL + "/login", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(dataLogin)
-				})
-				if (!resp.ok) throw Error("There was a problem in the login request")
-				const data = await resp.json()
-				console.log(data)
-				// Guarda el token en la localStorage
-				// También deberías almacenar el usuario en la store utilizando la función setItem
-				localStorage.setItem("token", data.token);
-				localStorage.setItem("role", data.role);
-				return data
+			},
+			getClients: async (userToken) => {
+				try {
+					// const userToken = localStorage.getItem("token")
+					console.log(userToken)
+					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
+						headers: { "Authorization": `Bearer ${userToken}` }
+				
+					}
+					)
+					if (response.status === 401) {
+						throw new Error("token invalido")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({clients: data})
+					console.log("estos son mis datos",data)
+					return data
+				} catch(error){
+					console.log("error al obtener los clientes",error)
+				}
+
+	
 			},
 			// register: async (email, password,name)=>{
 			// 	const dataRegister = {
@@ -116,7 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	const data = await resp.json()
 			// 	return data
 			// }
-			
+
 		}
 	};
 };
