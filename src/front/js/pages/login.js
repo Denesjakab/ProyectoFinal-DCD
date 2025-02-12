@@ -4,6 +4,8 @@ import homeImg from "../../img/training-828726_1920.jpg"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
+
+
 export const Login = () => {
     const { store, actions } = useContext(Context)
     const navigate = useNavigate()
@@ -12,15 +14,20 @@ export const Login = () => {
         password: ""
     })
     const [loginError, setLoginError] = useState("")
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setDataLogin({ ...dataLogin, [name]: value })
+
         actions.setUser({ ...store, [name]: value })
     }
+
     const sendData = async (e) => {
         e.preventDefault()
+
         if (dataLogin.email && dataLogin.password) {
             const loginSuccess = await actions.login(store.email, store.password)
+
             if (loginSuccess) {
                 const role = localStorage.role
                 console.log("Usuario logueado correctamente.", role)
@@ -61,25 +68,27 @@ export const Login = () => {
                                 onChange={handleChange} />
                             {loginError !== "" ? loginError : <></>}
                         </div>
-                        <div className="d-flex align-items-center">
-                            {/* <Link to="/home"> */}
-                            <div className="py-5">
-                                <button type="submit" className="btn btn-warning "
-                                    onClick={sendData}
-                                >Log In</button>
-                            </div>
-                            {/* </Link> */}
-                            <Link to="/">
-                                <button className="btn btn-warning  ms-5">Home</button>
-                            </Link>
-                        </div>
-                    </form>
-                </div>
-                <div className="col-6 align-items-center">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "150%", maxWidth: "150%" }}></img>
-                </div>
-            </div>
+
+
+    <div className="d-flex align-items-center">
+        {/* <Link to="/home"> */}
+        <div className="py-5">
+            <button type="submit" className="btn btn-warning "
+                onClick={sendData}
+            >Log In</button>
         </div>
+        {/* </Link> */}
+        <Link to="/">
+            <button className="btn btn-warning  ms-5">Home</button>
+        </Link>
+    </div>
+                    </form >
+                </div >
+    <div className="col-6 align-items-center">
+        <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "150%", maxWidth: "150%" }}></img>
+    </div>
+            </div >
+        </div >
         
     )
 }

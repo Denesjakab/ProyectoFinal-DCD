@@ -90,9 +90,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorData = await resp.json()
 						throw new Error(errorData.message || "Error en la autenticación")
 					}
+
 					const data = await resp.json()
 					localStorage.setItem("token", data.token);
 					localStorage.setItem("role", data.role);
+
 					return data;
 				} catch (error) {
 					console.error("Error en login:", error.message)

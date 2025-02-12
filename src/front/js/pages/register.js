@@ -23,10 +23,10 @@ export const Register = () => {
     }
 
     const sendData = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (!validateEmail(userData.email)) {
-            console.log("Formato de email inválido.");
+            console.log("Formato de email inválido.")
             return;
         }
 
