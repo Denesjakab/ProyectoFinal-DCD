@@ -12,6 +12,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_cors import CORS
 
 
 
@@ -41,6 +42,7 @@ def revoked_token_callback(_, __):
     return jsonify({'msg': 'Este token ha sido revocado.'}), 401
 
 bcrypt = Bcrypt(app)
+CORS(app)
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -107,7 +109,7 @@ def new_user():
     new_user = User(
         name = body['name'],
         email = body['email'],
-        password = bcrypt.generate_password_hash(body['password']).decode('utf-8')
+        password = bcrypt.generate_password_hash(str(body['password'])).decode('utf-8')
     )
     db.session.add(new_user)
     db.session.commit()
@@ -157,8 +159,9 @@ def get_info_client():
     mail_user = get_jwt_identity()
     user = User.query.filter_by(email = mail_user).first()
     progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
 
-    return jsonify({'Info': (user.serialize(), progress.serialize())}), 200
+    return jsonify({'Info': user.serialize(), "Progress": progress.serialize(), "Plan": plan.serialize()}), 200
 
 
 @app.route('/list-clients', methods=['GET'])
@@ -174,7 +177,7 @@ def get_list_clients():
     result = []
     for user, progress in list_clients:
         result.append({
-            "user": user.serialize(),
+            "client": user.serialize(),
             "progress": progress.serialize()
         })
 
@@ -191,10 +194,12 @@ def get_client_info(client_id):
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
     client = User.query.get(client_id)
+    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
     if not client:
         return jsonify({'msg': 'Cliente no encontrado'}), 404
 
-    return jsonify({"Client": client.serialize()}), 200
+    return jsonify({'Client': client.serialize(), 'Progress': progress.serialize(), "Plan": plan.serialize()}), 200
 
 #------------------------------- Progress -----------------------------------
 VALID_GOAL = {'gain', 'lose'}
@@ -202,7 +207,7 @@ VALID_GOAL = {'gain', 'lose'}
 @jwt_required()
 def first_progress():
     body = request.get_json(silent=True)
-    if not body:
+    if body is None:
         return jsonify({'msg': 'Debes enviar un body'}), 400
 
     current_user = get_jwt_identity()
@@ -267,7 +272,7 @@ def first_progress():
 @jwt_required()
 def new_progress():
     body = request.get_json(silent=True)
-    if not body:
+    if body is None:
         return jsonify({'msg': 'Debes enviar un body'}), 400
 
     current_user = get_jwt_identity()
@@ -314,6 +319,46 @@ def new_progress():
         'progress_percentage': new_progress.progress_percentage,
         'weight': new_progress.weight
     }), 200
+
+
+#--------------------------------- Plan -------------------------------------
+
+@app.route('/new-plan', methods=['POST'])
+@jwt_required()
+def add_plan_client():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+    body = request.get_json(silent=True)
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    if body is None:
+        return jsonify({'msg': 'Debes enviar un body'}), 400
+    if 'user_id' not in body or 'file_url' not in body:
+        return jsonify({'msg': 'Es necesario el usuario y la URL del plan'}), 400
+
+    client = User.query.get(body['user_id'])
+    if not client:
+       return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    new_plan = Plan(
+        user_id = client.id,
+        file_url = body['file_url'],
+        user = client
+    )
+    new_plan.notes = body.get('notes', None)
+
+    db.session.add(new_plan)
+    db.session.commit()
+
+    return jsonify({
+        'msg': 'Plan subido',
+        'Cliente': client.email,
+        'File': new_plan.file_url
+    }), 200
+
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
