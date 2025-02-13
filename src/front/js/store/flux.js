@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			setUser: (data) => {
 				const store = getStore();
-				setStore({ ...store, ...data });
+				setStore({ ...store, ...data })
 			},
 
 			clearUser: () => {
@@ -105,21 +105,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-			// register: async (email, password,name)=>{
-			// 	const dataRegister = {
-			// 		email: email,
-			// 		password: password,
-			// 		name: name
-			// 	}
-			// 	const resp = await fetch(process.env.BACKEND_URL + "/register", {
-			// 		method: "POST",
-			// 		headers: {"Content-Type":"application/json"},
-			// 		body: JSON.stringify(dataRegister)
-			// 	})
-			// 	if (!resp.ok) throw Error("There was a problem in the register request")
-			// 	const data = await resp.json()
-			// 	return data
-			// }
+
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+
+			}
 
 		}
 	};

@@ -79,14 +79,11 @@ export const Login = () => {
 
 
                         <div className="d-flex align-items-center">
-                            {/* <Link to="/home"> */}
                             <div className="py-5">
                                 <button type="submit" className="btn btn-warning "
                                     onClick={sendData}
                                 >Log In</button>
                             </div>
-                            {/* </Link> */}
-
                             <Link to="/">
                                 <button className="btn btn-warning  ms-5">Home</button>
                             </Link>
