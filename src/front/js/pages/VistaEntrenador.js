@@ -14,17 +14,17 @@ const VistaEntrenador = () => {
                         <button className='view-details'>View details</button>
                     </div>
                     <div className='cliente'>
-                    <p><strong>Client Name</strong></p>
+                        <p><strong>Client Name</strong></p>
                         <button className='view-details'>View details</button>
                     </div>
                     <div className='cliente'>
-                    <p><strong>Client Name</strong></p>
+                        <p><strong>Client Name</strong></p>
                         <button className='view-details'>View details</button>
                     </div>
                     <div className='cliente'>
                         <p><strong>Client Name</strong></p>
                         <Link to="/trainer/perfilcliente">
-                        <button className='view-details'>View details</button>
+                            <button className='view-details'>View details</button>
                         </Link>
                     </div>
                 </div>
