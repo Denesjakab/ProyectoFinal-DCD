@@ -57,6 +57,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			setUser: (data) => {
+				const store = getStore();
+				setStore({ ...store, ...data })
+			},
+
 			clearUser: () => {
 				setStore({ email: "", password: "", name: "" });
 			},
@@ -126,6 +131,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 	
 			},
+
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+
+			}
 
 		}
 	};

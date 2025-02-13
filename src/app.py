@@ -229,7 +229,7 @@ def first_progress():
         height = float(body['height'])
         weight = float(body['weight'])
         goal = body['goal']
-        goal_kg = int(body['goal_kg'])
+        goal_kg = float(body['goal_kg'])
         if goal not in VALID_GOAL:
             return jsonify ({'msg': f'El objetivo debe ser : {",".join(VALID_GOAL)}'}), 400
         if height <= 0 or weight <= 0 or goal_kg < 0:
@@ -241,7 +241,7 @@ def first_progress():
         user.goal_kg = goal_kg
 
     except ValueError:
-        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'})
+        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'}), 400
     
     optional_fields = ['waist', 'abdomen', 'arm', 'leg']
     for field in optional_fields:
@@ -256,8 +256,8 @@ def first_progress():
 
     try:
         progress.progress_percentage = progress.calculate_progress_percentage()
-    except Exception:
-        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'})
+    except ValueError:
+        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'}), 400
 
     db.session.commit()
 
