@@ -90,7 +90,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ email, password })
 					})
-
 					if (!resp.ok) {
 						const errorData = await resp.json()
 						throw new Error(errorData.message || "Error en la autenticación")
@@ -107,32 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			firstProgress: async (dataUser) => {
-				const token = localStorage.getItem("token")
-				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							"Authorization": "Bearer " + token
-						},
-						body: JSON.stringify(dataUser)
-					})
-
-					if (resp.status === 401) {
-						throw Error("Problemas con el token enviado.")
-					}
-
-					const data = await resp.json()
-					return data;
-				} catch (error) {
-					console.error("Error en first-progress:", error.message)
-					return false
-				}
-
-			},
-
-			getClients: async (userToken) => {
+      getClients: async (userToken) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
 						headers: { "Authorization": `Bearer ${userToken}` }
@@ -156,7 +130,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("error al obtener los clientes", error)
 				}
 			},
+      
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
 
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+			},
+      
 		}
 	};
 };

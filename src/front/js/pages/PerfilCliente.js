@@ -3,7 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const PerfilCliente = () => {
+  
+
   return (
+
+    
     <div className="container perfil-cliente">
       <div className="parte-arriba">
 

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+
 import '../../styles/VistaEntrenador.css'
 import { Link } from 'react-router-dom';
 import { Context } from "../store/appContext.js";
@@ -25,6 +26,7 @@ const VistaEntrenador = () => {
                             <button className='view-details'>View details</button>
                         </div>
                     ))}
+
                 </div>
             </div>
         </div>
