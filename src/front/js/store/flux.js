@@ -20,7 +20,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				name: ""
 			},
 			clients: [],
-
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -157,7 +156,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 
-			}
+			},
+
+			getClients: async (userToken) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
+						headers: { "Authorization": `Bearer ${userToken}` }
+
+					}
+					)
+					if (response.status === 401) {
+						throw new Error("token invalido")
+					}
+					if (response.status === 403) {
+						throw new Error("usuario no autorizado")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({ clients: data })
+					console.log("estos son mis datos", data)
+					return data
+				} catch (error) {
+					console.log("error al obtener los clientes", error)
+				}
+			},
 
 		}
 	};

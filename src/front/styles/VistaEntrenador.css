@@ -7,6 +7,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ddd;
 }
 
 .cliente{
