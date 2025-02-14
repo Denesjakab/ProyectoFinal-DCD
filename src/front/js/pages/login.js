@@ -11,16 +11,22 @@ export const Login = () => {
         email: "",
         password: ""
     })
+
     const [loginError, setLoginError] = useState("")
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setDataLogin({ ...dataLogin, [name]: value })
+
         actions.setUser({ ...store, [name]: value })
     }
+
     const sendData = async (e) => {
         e.preventDefault()
+
         if (dataLogin.email && dataLogin.password) {
             const loginSuccess = await actions.login(store.email, store.password)
+
             if (loginSuccess) {
                 const role = localStorage.role
                 console.log("Usuario logueado correctamente.", role)
@@ -61,14 +67,14 @@ export const Login = () => {
                                 onChange={handleChange} />
                             {loginError !== "" ? loginError : <></>}
                         </div>
+
+
                         <div className="d-flex align-items-center">
-                            {/* <Link to="/home"> */}
                             <div className="py-5">
                                 <button type="submit" className="btn btn-warning "
                                     onClick={sendData}
                                 >Log In</button>
                             </div>
-                            {/* </Link> */}
                             <Link to="/">
                                 <button className="btn btn-warning  ms-5">Home</button>
                             </Link>

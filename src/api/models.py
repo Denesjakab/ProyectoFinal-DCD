@@ -13,7 +13,7 @@ class User(db.Model):
     age = db.Column(db.Integer)
     height = db.Column(db.Numeric(5,2))
     goal = db.Column(db.Enum('gain', 'lose', name='goal_enum'))
-    goal_kg = db.Column(db.Integer)
+    goal_kg = db.Column(db.Numeric(5,2))
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     is_active = db.Column(db.Boolean(), nullable=False, default=True)

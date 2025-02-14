@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			setUser: (data) => {
 				const store = getStore();
-				setStore({ ...store, ...data });
+				setStore({ ...store, ...data })
 			},
 
 			clearUser: () => {
@@ -95,9 +95,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorData = await resp.json()
 						throw new Error(errorData.message || "Error en la autenticación")
 					}
+
 					const data = await resp.json()
 					localStorage.setItem("token", data.token);
 					localStorage.setItem("role", data.role);
+
 					return data;
 				} catch (error) {
 					console.error("Error en login:", error.message)
@@ -144,6 +146,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	const data = await resp.json()
 			// 	return data
 			// }
+			
+
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+
+			}
 
 		}
 	};
