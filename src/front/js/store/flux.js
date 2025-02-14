@@ -19,6 +19,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				password: "",
 				name: ""
 			},
+			clients: [],
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -89,7 +91,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ email, password })
 					})
-
 					if (!resp.ok) {
 						const errorData = await resp.json()
 						throw new Error(errorData.message || "Error en la autenticación")
@@ -105,6 +106,47 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+			getClients: async (userToken) => {
+				try {
+					// const userToken = localStorage.getItem("token")
+					console.log(userToken)
+					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
+						headers: { "Authorization": `Bearer ${userToken}` }
+				
+					}
+					)
+					if (response.status === 401) {
+						throw new Error("token invalido")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({clients: data})
+					console.log("estos son mis datos",data)
+					return data
+				} catch(error){
+					console.log("error al obtener los clientes",error)
+				}
+
+	
+			},
+			// register: async (email, password,name)=>{
+			// 	const dataRegister = {
+			// 		email: email,
+			// 		password: password,
+			// 		name: name
+			// 	}
+			// 	const resp = await fetch(process.env.BACKEND_URL + "/register", {
+			// 		method: "POST",
+			// 		headers: {"Content-Type":"application/json"},
+			// 		body: JSON.stringify(dataRegister)
+			// 	})
+			// 	if (!resp.ok) throw Error("There was a problem in the register request")
+			// 	const data = await resp.json()
+			// 	return data
+			// }
+			
 
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")

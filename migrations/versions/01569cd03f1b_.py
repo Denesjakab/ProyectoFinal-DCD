@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 56b8d68511c6
+Revision ID: 01569cd03f1b
 Revises: 
-Create Date: 2025-02-10 19:04:46.755730
+Create Date: 2025-02-12 17:50:43.929371
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '56b8d68511c6'
+revision = '01569cd03f1b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -40,7 +40,7 @@ def upgrade():
     sa.Column('file_url', sa.String(length=255), nullable=True),
     sa.Column('notes', sa.String(length=255), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('progress',
@@ -55,7 +55,7 @@ def upgrade():
     sa.Column('progress_percentage', sa.Integer(), nullable=True),
     sa.Column('notes', sa.String(length=255), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
