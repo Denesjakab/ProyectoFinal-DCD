@@ -194,12 +194,18 @@ def get_client_info(client_id):
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
     client = User.query.get(client_id)
-    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
-    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
     if not client:
         return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
+    progress_data = progress.serialize()if progress else None
+    plan_data=plan.serialize()if plan else None
 
-    return jsonify({'Client': client.serialize(), 'Progress': progress.serialize(), "Plan": plan.serialize()}), 200
+    return jsonify({
+        'Client': client.serialize(),
+        'Progress': progress_data,
+        "Plan": plan_data}), 200
 
 @app.route('/profileclient', methods=['GET'])
 @jwt_required()
@@ -260,7 +266,7 @@ def first_progress():
         height = float(body['height'])
         weight = float(body['weight'])
         goal = body['goal']
-        goal_kg = int(body['goal_kg'])
+        goal_kg = float(body['goal_kg'])
         if goal not in VALID_GOAL:
             return jsonify ({'msg': f'El objetivo debe ser : {",".join(VALID_GOAL)}'}), 400
         if height <= 0 or weight <= 0 or goal_kg < 0:
@@ -272,7 +278,7 @@ def first_progress():
         user.goal_kg = goal_kg
 
     except ValueError:
-        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'})
+        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'}), 400
     
     optional_fields = ['waist', 'abdomen', 'arm', 'leg']
     for field in optional_fields:
@@ -287,8 +293,8 @@ def first_progress():
 
     try:
         progress.progress_percentage = progress.calculate_progress_percentage()
-    except Exception:
-        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'})
+    except ValueError:
+        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'}), 400
 
     db.session.commit()
 

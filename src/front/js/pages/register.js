@@ -16,6 +16,8 @@ export const Register = () => {
         name: ""
     })
 
+    const [errorData, setErrorData] = useState("")
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setUserData({ ...userData, [name]: value })
@@ -26,33 +28,33 @@ export const Register = () => {
     const sendData = async (e) => {
         e.preventDefault()
 
-        if (!validateEmail(userData.email)) {
-            console.log("Formato de email inválido.")
-            return;
-        }
-
         if (store.email && store.password && store.name) {
-            try {
-                const registerSuccess = await actions.register(store.email, store.password, store.name)
+            if (!validateEmail(userData.email)) {
+                setErrorData(<p className="text-danger">Formato de email inválido.</p>)
+                return;
+            } else {
+                try {
+                    const registerSuccess = await actions.register(store.email, store.password, store.name)
 
-                if (registerSuccess) {
-                    const loginSuccess = await actions.login(store.email, store.password)
+                    if (registerSuccess) {
+                        const loginSuccess = await actions.login(store.email, store.password)
 
-                    if (loginSuccess) {
-                        console.log("Usuario registrado y logueado correctamente.")
-                        actions.clearUser()
-                        navigate("/registerData")
+                        if (loginSuccess) {
+                            console.log("Usuario registrado y logueado correctamente.")
+                            actions.clearUser()
+                            navigate("/registerData")
+                        } else {
+                            console.log("Error al iniciar sesión después del registro.")
+                        }
                     } else {
-                        console.log("Error al iniciar sesión después del registro.")
+                        console.log("Error en el registro del usuario.")
                     }
-                } else {
-                    console.log("Error en el registro del usuario.")
+                } catch (error) {
+                    console.error("Error en el proceso de registro/login:", error)
                 }
-            } catch (error) {
-                console.error("Error en el proceso de registro/login:", error)
             }
         } else {
-            console.log("Faltan datos. Completa el formulario.")
+            setErrorData(<p className="text-danger">Completa el formulario.</p>)
         }
     };
 
@@ -89,6 +91,7 @@ export const Register = () => {
                         <div className="form-group pb-3">
                             <label className="py-2">Password</label>
                             <input type="password" className="form-control" name="password" id="InputPassword" value={userData.password} onChange={handleChange} placeholder="Password" />
+                            {errorData !== "" ? errorData : <></>}
                         </div>
                         <div className="d-flex align-items-center">
                             <div className="py-">

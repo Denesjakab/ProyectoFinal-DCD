@@ -22,10 +22,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 			},
 
+
 			profile:null, 
 			currentUser: null
 
 			
+
+			clients: [],
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -64,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			setUser: (data) => {
 				const store = getStore();
-				setStore({ ...store, ...data });
+				setStore({ ...store, ...data })
 			},
 
 			clearUser: () => {
@@ -96,7 +100,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ email, password })
 					})
-
 					if (!resp.ok) {
 						const errorData = await resp.json()
 						throw new Error(errorData.message || "Error en la autenticación")
@@ -112,6 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
 			
 			getProfile: async () => {
 				const token = localStorage.getItem('token');
@@ -140,6 +144,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			  },
 
+      getClients: async (userToken) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
+						headers: { "Authorization": `Bearer ${userToken}` }
+
+					}
+					)
+					if (response.status === 401) {
+						throw new Error("token invalido")
+					}
+					if (response.status === 403) {
+						throw new Error("usuario no autorizado")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({ clients: data })
+					console.log("estos son mis datos", data)
+					return data
+				} catch (error) {
+					console.log("error al obtener los clientes", error)
+				}
+			},
+      
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+			},
+      
 		}
 	};
 };
