@@ -11,27 +11,27 @@ export const Navbar = () => {
 		<div>
 			{/* {!isloggedin ? (<> */}
 
-				<nav className="navbar custom-navbar" style={{ color: "rgba(15, 15, 15, 0.992)" }}>
-					<div className="container">
+			<nav className="navbar custom-navbar">
+				<div className="container">
 
 
-						{/* <Link to="/">
+					{/* <Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link> */}
-						<img src={Logo} style={{ maxHeight: "5%", maxWidth: "5%" }}></img>
-						<div className="ml-auto">
-							{/* <Link to="/demo">
+					<img src={Logo} style={{ maxHeight: "5%", maxWidth: "5%" }}></img>
+					<div className="ml-auto">
+						{/* <Link to="/demo">
 								<button className="btn btn-primary">Check the Context in action</button>
 							</Link> */}
 
-							<Link to="/login">
-								<button className="btn btn-warning  ms-3">Log in</button>
-							</Link>
+						<Link to="/login">
+							<button className="btn btn-warning  ms-3">Log in</button>
+						</Link>
 
-						</div>
 					</div>
-				</nav> 
-				{/* </>) : (<NavbarLogged />)
+				</div>
+			</nav>
+			{/* </>) : (<NavbarLogged />)
 
 			} */}
 		</div>

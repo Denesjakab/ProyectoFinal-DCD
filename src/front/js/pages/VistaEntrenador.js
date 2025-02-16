@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+
 import '../../styles/VistaEntrenador.css'
 import { Link } from 'react-router-dom';
 import { Context } from "../store/appContext.js";
@@ -50,8 +51,9 @@ const VistaEntrenador = () => {
                         <p><strong>Client Name</strong></p>
                         <Link to="/trainer/perfilcliente">
                             <button className='view-details'>View details</button>
-                        </Link>
-                    </div> */}
+                        </div>
+                    ))}
+
                 </div>
             </div>
         </div>

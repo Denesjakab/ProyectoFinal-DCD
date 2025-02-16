@@ -4,6 +4,7 @@ import homeImg from "../../img/training-828726_1920.jpg"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
+import { number } from "prop-types";
 
 export const RegisterData = () => {
     const { store, actions } = useContext(Context)
@@ -24,7 +25,6 @@ export const RegisterData = () => {
     })
 
     const [errorData, setErrorData] = useState("")
-    const [errorGoal, setErrorGoal] = useState("")
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -55,16 +55,22 @@ export const RegisterData = () => {
     }
 
     const checkGoal = (weight, goal, goal_kg) => {
+        const weightNum = parseFloat(weight)
+        const goalKgNum = parseFloat(goal_kg)
+
+        if (isNaN(weightNum) || isNaN(goalKgNum) || weightNum === 0 || goalKgNum === 0) {
+            console.error("Valores inválidos para peso o peso objetivo.")
+            return false;
+        }
+
         if (goal === "gain") {
-            if (weight >= goal_kg)
-                return false
+            if (weightNum >= goalKgNum) return false
         }
         if (goal === "lose") {
-            if (weight <= goal_kg) {
-                return false
-            }
+            if (weightNum <= goalKgNum) return false
         }
-        return true
+
+        return true;
     }
 
     return (
@@ -100,7 +106,6 @@ export const RegisterData = () => {
                             <label className="py-2">How much weight?*</label>
                             <input type="number" className="form-control" name="goal_kg" id="goalKgInput" value={formData.goal_kg} onChange={handleChange} placeholder="How much weight?" />
                             {errorData !== "" ? errorData : <></>}
-                            {errorGoal !== "" ? errorGoal : <></>}
                         </div>
 
                         <div className="d-flex align-items-center pt-5 pb-3">
