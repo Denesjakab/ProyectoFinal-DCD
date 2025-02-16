@@ -47,7 +47,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
-                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/>
+                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente/:id"/>
                         <Route element={<VistaEntrenador/>} path="/trainer"/>
                         <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
                         <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>

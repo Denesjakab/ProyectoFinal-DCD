@@ -131,23 +131,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 	
 			},
-			// register: async (email, password,name)=>{
-			// 	const dataRegister = {
-			// 		email: email,
-			// 		password: password,
-			// 		name: name
-			// 	}
-			// 	const resp = await fetch(process.env.BACKEND_URL + "/register", {
-			// 		method: "POST",
-			// 		headers: {"Content-Type":"application/json"},
-			// 		body: JSON.stringify(dataRegister)
-			// 	})
-			// 	if (!resp.ok) throw Error("There was a problem in the register request")
-			// 	const data = await resp.json()
-			// 	return data
-			// }
-			
 
+			
+			
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
 				try {
