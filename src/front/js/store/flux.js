@@ -17,8 +17,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {
 				email: "",
 				password: "",
-				name: ""
+				name: "",
+				
+				
 			},
+
+			profile:null, 
+			currentUser: null
+
+			
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -105,21 +112,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-			// register: async (email, password,name)=>{
-			// 	const dataRegister = {
-			// 		email: email,
-			// 		password: password,
-			// 		name: name
-			// 	}
-			// 	const resp = await fetch(process.env.BACKEND_URL + "/register", {
-			// 		method: "POST",
-			// 		headers: {"Content-Type":"application/json"},
-			// 		body: JSON.stringify(dataRegister)
-			// 	})
-			// 	if (!resp.ok) throw Error("There was a problem in the register request")
-			// 	const data = await resp.json()
-			// 	return data
-			// }
+			
+			getProfile: async () => {
+				const token = localStorage.getItem('token');
+
+				try {
+				  const resp = await fetch(process.env.BACKEND_URL + "/profileclient", {
+					method: "GET",
+					headers: {
+					  "Content-Type": "application/json",
+					  Authorization: `Bearer ${token}`,
+					},
+				  });
+		
+				  if (!resp.ok) {
+					const errorData = await resp.json();
+					throw new Error(errorData.msg || "Error al obtener el perfil del cliente");
+				  }
+		
+				  const data = await resp.json();
+				  setStore({ profile: data }); 
+				  setStore({currentUser: data})
+				  return data;
+				} catch (error) {
+				  console.error("Error al obtener los datos del cliente:", error.message);
+				  return false;
+				}
+			  },
 
 		}
 	};
