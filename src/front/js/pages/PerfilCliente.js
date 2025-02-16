@@ -1,42 +1,68 @@
-import React from 'react'
-// import "../../styles/PerfilCliente.css";
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import "../../styles/PerfilCliente.css";
+import { Context } from "../store/appContext";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const PerfilCliente = () => {
+    const { store, actions } = useContext(Context);  
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const navigate = useNavigate()
+    // const { profile } = store.user;  
   
+    useEffect(() => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        actions.getProfile()
+        setIsLoggedIn(true)
+      } else {
+        setIsLoggedIn(false)
+        navigate("/")
+      }
 
-  return (
-
-    
-    <div className="container perfil-cliente">
-      <div className="parte-arriba">
-
-        <div className="info-cliente">
-          <h3 className='nombre-cliente'>Nombre del Cliente</h3>
-          <img src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Foto-del-cliente" className="foto-cliente" />
-          <p className='descarga-aqui'>Descarga aquí tu PLAN</p>
-          <button className="download-button">Download program</button>
-        </div>
-
-        <div className="datos-cliente">
-          <h2 className='datos-nombre'>Datos de "Nombre del cliente"</h2>
-          <p className='estadisticas'>Weight</p>
-          <input className='cm' type="text" placeholder="cm" /> 
-          <p className='estadisticas'>Waist sixe</p>
-          <input className='cm'type="text" placeholder="cm" />
-          <p className='estadisticas'>Abdominal size</p>
-          <input className='cm' type="text" placeholder="cm" />
-          <p className='estadisticas'>Arm size</p>
-          <input className='cm' type="text" placeholder="cm" />
-          <p className='estadisticas'>Leg size</p>
-          <input className='cm' type="text" placeholder="cm" />
+    }, []); 
+  
+  
+    return (
+      <div className="container perfil-cliente">
+        {isLoggedIn && (<>
+          <div className="parte-arriba">
+          <div className="info-cliente">
+            <h3 className='nombre-cliente'>{store.currentUser?.name}</h3>
+            <img 
+              src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Foto-del-cliente" 
+              className="foto-cliente" 
+            />
+            <p className='descarga-aqui'>Descarga aquí tu PLAN</p>
+            <button className="download-button">Download program</button>
+          </div>
+  
+          <div className="datos-cliente">
+            <h2 className='datos-nombre'>Data of {store.currentUser?.name}</h2>
+            <p className='estadisticas'>Age</p>
+            <div className='cm'><p>{store.currentUser?.age} years</p></div>
+            <p className='estadisticas'>Height</p>
+            <div className='cm'><p>{store.currentUser?.height} cm</p></div>
+            <p className='estadisticas'>Weight</p>
+            <div className='cm'><p>{store.currentUser?.weight} kg</p></div>
+            <p className='estadisticas'>Waist size</p>
+            <div className='cm'><p>{store.currentUser?.waist} cm</p></div>
+            <p className='estadisticas'>Abdomen size</p>
+            <div className='cm'><p>{store.currentUser?.abdomen} cm</p></div>
+            <p className='estadisticas'>Arm size</p>
+            <div className='cm'><p>{store.currentUser?.arm} cm</p></div>
+            <p className='estadisticas'>Leg size</p>
+            <div className='cm'><p>{store.currentUser?.progress.leg} cm</p></div>
+          </div>
+          <div className='boton-cliente'>
           <Link to="/PerfilCliente/updateProgress">
-          <button className="update-progres">Update Progress</button>
-          </Link>
+              <button className="update-progres">Update Progress</button>
+            </Link>
+          </div>
         </div>
-
-      </div>
-      <div className="header_container">
+        </>)}
+        <div className="header_container">
         <div className="line"></div>
         <div className="header">
           Current Program
@@ -51,8 +77,11 @@ const PerfilCliente = () => {
         <button className="cancel-button">Cancel my gym membership</button>
         </Link>
       </div>
-    </div>
-  );
-};
 
-export default PerfilCliente;
+
+
+      </div>
+    );
+  };
+  
+  export default PerfilCliente;

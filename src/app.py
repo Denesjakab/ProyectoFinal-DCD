@@ -207,6 +207,37 @@ def get_client_info(client_id):
         'Progress': progress_data,
         "Plan": plan_data}), 200
 
+@app.route('/profileclient', methods=['GET'])
+@jwt_required()
+def get_profile(): 
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+
+    if not user: 
+        return jsonify({'msg':'user not found'}), 404
+    
+    last_progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+        
+    return jsonify({
+        'id': user.id,
+        'name': user.name,
+        'age': user.age,
+        'height': str(user.height), 
+        'goal': user.goal,
+        'goal_kg': user.goal_kg, 
+        'progress': {
+            'weight': str(last_progress.weight) if last_progress else None, 
+            'waist': str(last_progress.waist) if last_progress else None,
+            'abdomen': str(last_progress.abdomen) if last_progress else None,
+            'arm': str(last_progress.arm) if last_progress else None,
+            'leg': str(last_progress.leg) if last_progress else None,
+            'progress_percentage':last_progress.progress_percentage if last_progress else None,
+        }
+            
+        })
+
+
+
 #------------------------------- Progress -----------------------------------
 VALID_GOAL = {'gain', 'lose'}
 @app.route('/first-progress', methods=['POST'])

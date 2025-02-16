@@ -17,9 +17,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {
 				email: "",
 				password: "",
-				name: ""
+				name: "",
+				
+				
 			},
+
+
+			profile:null, 
+			currentUser: null
+
+			
+
 			clients: [],
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -105,6 +115,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
+			
+			getProfile: async () => {
+				const token = localStorage.getItem('token');
+
+				try {
+				  const resp = await fetch(process.env.BACKEND_URL + "/profileclient", {
+					method: "GET",
+					headers: {
+					  "Content-Type": "application/json",
+					  Authorization: `Bearer ${token}`,
+					},
+				  });
+		
+				  if (!resp.ok) {
+					const errorData = await resp.json();
+					throw new Error(errorData.msg || "Error al obtener el perfil del cliente");
+				  }
+		
+				  const data = await resp.json();
+				  setStore({ profile: data }); 
+				  setStore({currentUser: data})
+				  return data;
+				} catch (error) {
+				  console.error("Error al obtener los datos del cliente:", error.message);
+				  return false;
+				}
+			  },
 
       getClients: async (userToken) => {
 				try {
