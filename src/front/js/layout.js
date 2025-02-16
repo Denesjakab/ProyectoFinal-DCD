@@ -57,7 +57,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
 
                         <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
-                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/>
+                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente/:id"/>
                         <Route element={<VistaEntrenador/>} path="/trainer"/>
 
                         <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>

@@ -132,6 +132,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	
 			},
 
+			
+			
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
 				try {

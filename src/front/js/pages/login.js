@@ -14,20 +14,15 @@ export const Login = () => {
         password: ""
     })
     const [loginError, setLoginError] = useState("")
-
     const handleChange = (e) => {
         const { name, value } = e.target
         setDataLogin({ ...dataLogin, [name]: value })
-
         actions.setUser({ ...store, [name]: value })
     }
-
     const sendData = async (e) => {
         e.preventDefault()
-
         if (dataLogin.email && dataLogin.password) {
             const loginSuccess = await actions.login(store.email, store.password)
-
             if (loginSuccess) {
                 const role = localStorage.role
                 console.log("Usuario logueado correctamente.", role)
