@@ -194,12 +194,18 @@ def get_client_info(client_id):
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
     client = User.query.get(client_id)
-    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
-    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
     if not client:
         return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
+    progress_data = progress.serialize()if progress else None
+    plan_data=plan.serialize()if plan else None
 
-    return jsonify({'Client': client.serialize(), 'Progress': progress.serialize(), "Plan": plan.serialize()}), 200
+    return jsonify({
+        'Client': client.serialize(),
+        'Progress': progress_data,
+        "Plan": plan_data}), 200
 
 #------------------------------- Progress -----------------------------------
 VALID_GOAL = {'gain', 'lose'}
