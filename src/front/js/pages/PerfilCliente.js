@@ -7,7 +7,7 @@ const PerfilCliente = () => {
     const { store, actions } = useContext(Context);  
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const navigate = useNavigate()
-    // const { profile } = store.user;  
+   
   
     useEffect(() => {
       const token = localStorage.getItem('token')
