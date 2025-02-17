@@ -13,7 +13,11 @@ from api.commands import setup_commands
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
+import cloudinary
+import cloudinary.uploader
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -364,6 +368,21 @@ def add_plan_client():
         'File': new_plan.file_url
     }), 200
 
+    #--------------------------------- Cloudinary -------------------------------------
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # Verificar si el usuario envió un archivo
+    file = request.files.get('file')
+    if not file:
+        return jsonify({"error": "No se ha proporcionado un archivo"}), 400
+
+    try:
+        # Subir el archivo a Cloudinary
+        upload_result = cloudinary.uploader.upload(file)
+        return jsonify({"url": upload_result["secure_url"]}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # this only runs if `$ python src/main.py` is executed
