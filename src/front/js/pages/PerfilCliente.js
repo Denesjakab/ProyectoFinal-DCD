@@ -3,7 +3,6 @@ import "../../styles/PerfilCliente.css";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from 'react-router-dom';
 
-
 const PerfilCliente = () => {
     const { store, actions } = useContext(Context);  
     const [isLoggedIn, setIsLoggedIn] = useState(false)

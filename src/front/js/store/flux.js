@@ -32,6 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			clients: [],
 
+			selectedClient: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -117,7 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-
+      
 			getProfile: async () => {
 				const token = localStorage.getItem('token');
 
@@ -163,13 +164,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json()
 					setStore({ clients: data })
-					console.log("estos son mis datos", data)
 					return data
 				} catch (error) {
 					console.log("error al obtener los clientes", error)
 				}
 			},
-      
+
+			setSelectedClient: (client) => {
+				setStore({ selectedClient: client });
+			},
+
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
 				try {
@@ -193,7 +197,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-      
+
+			newPlan: async (dataPlan) => {
+				const token = localStorage.getItem("token")
+				console.log(dataPlan);
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/new-plan", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataPlan)
+					})
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en new_plan:", error.message)
+					return false
+				}
+
+			},
+
+			uploadFile: async (file) => {
+				try {
+					let formData = new FormData()
+					formData.append("file", file)
+
+					let response = await fetch(process.env.BACKEND_URL + "/upload", {
+						method: "POST",
+						body: formData
+					});
+
+					let result = await response.json()
+
+					if (result.url) {
+						return result.url
+					} else {
+						console.error("Error al subir la imagen:", result)
+						return null
+					}
+				} catch (error) {
+					console.error("Error en la subida de imagen:", error)
+					return null
+				}
+			},
+        
 			updateProgress: async () => {
 				const token = localStorage.getItem('token');
 
