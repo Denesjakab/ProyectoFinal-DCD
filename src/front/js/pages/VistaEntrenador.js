@@ -19,12 +19,20 @@ const VistaEntrenador = () => {
                 <h1>Your Clients</h1>
 
                 <div className='lista-clientes'>
-                    {store.clients.map((client, index) => (
-                        <div className='cliente' key={index}>
-                            <p><strong>{client.client.name}</strong></p>
-                            <button className='view-details'>View details</button>
-                        </div>
-                    ))}
+                    {store.clients.map((client, index) => {
+                        return (
+                            <div className='cliente'
+                                key={index}
+                            >
+                                <p><strong>{client.client.name}</strong></p>
+                                <Link to={`/trainer/cliente/${client.client.id}`}>
+                                    <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
+                                </Link>
+
+                            </div>
+                        )
+                    })
+                    }
                 </div>
             </div>
         </div>
