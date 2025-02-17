@@ -13,28 +13,38 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-
+    justify-content: space-around; 
+    align-items: center; 
+    gap: 10px;
 }
 
 .info-cliente{
-    width: 500px;
+    width: 40%;
+    height: 100%;
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
-    margin-left: 100px;
 }
 .datos-cliente{
-    margin-top: 60px;
-    width: 30%;
-    height: 650px;
+    width: 40%;
+    height: 100%;
     background-color: #1e1e1e;
     border-radius: 10px;
-    margin-right: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-cliente{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
 }
 
 .foto-cliente {
-    width: 100%;
+    width: 75%;
 }
 
 .download-button, .cancel-button {
@@ -48,8 +58,8 @@
 }
 
 .update-progres{
-    width: 40%; 
-    height: 20%;
+    width: 300px; 
+    height: 150px;
     background-color: #FFD700;
     color: black;
     padding: 10px 20px;
@@ -57,7 +67,7 @@
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 60px;
+  
 }
 
 .cm {
@@ -73,10 +83,10 @@
 
 .datos-nomobre, .nombre-cliente {
     color: #FFD700;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .datos-nombre{
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     margin-top: 5px;
 }
 .estadisticas{
