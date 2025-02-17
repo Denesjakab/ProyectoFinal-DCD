@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -18,14 +20,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				email: "",
 				password: "",
 				name: "",
-				
-				
+
+
 			},
 			clients: [],
 
 
 			profile:null, 
-			currentUser: null
+			currentUser: null,
 
 			
 		},
@@ -168,31 +170,113 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem('token');
 
 				try {
-				  const resp = await fetch(process.env.BACKEND_URL + "/profileclient", {
-					method: "GET",
-					headers: {
-					  "Content-Type": "application/json",
-					  Authorization: `Bearer ${token}`,
-					},
-				  });
-		
-				  if (!resp.ok) {
-					const errorData = await resp.json();
-					throw new Error(errorData.msg || "Error al obtener el perfil del cliente");
-				  }
-		
-				  const data = await resp.json();
-				  setStore({ profile: data }); 
-				  setStore({currentUser: data})
-				  return data;
+					const resp = await fetch(process.env.BACKEND_URL + "/profileclient", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					});
+
+					if (!resp.ok) {
+						const errorData = await resp.json();
+						throw new Error(errorData.msg || "Error al obtener el perfil del cliente");
+					}
+
+					const data = await resp.json();
+					setStore({ profile: data });
+					setStore({ currentUser: data })
+					return data;
 				} catch (error) {
-				  console.error("Error al obtener los datos del cliente:", error.message);
-				  return false;
+					console.error("Error al obtener los datos del cliente:", error.message);
+					return false;
 				}
-			  },
+			},
 
+      getClients: async (userToken) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
+						headers: { "Authorization": `Bearer ${userToken}` }
+
+					}
+					)
+					if (response.status === 401) {
+						throw new Error("token invalido")
+					}
+					if (response.status === 403) {
+						throw new Error("usuario no autorizado")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({ clients: data })
+					console.log("estos son mis datos", data)
+					return data
+				} catch (error) {
+					console.log("error al obtener los clientes", error)
+				}
+			},
+      
+			firstProgress: async (dataUser) => {
+				const token = localStorage.getItem("token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/first-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataUser)
+					})
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en first-progress:", error.message)
+					return false
+				}
+			},
+      
+			updateProgress: async () => {
+				const token = localStorage.getItem('token');
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/new-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+						body: JSON.stringify(formData)
+					});
+
+					const result = await resp.json();
+
+					if (resp.ok){
+						alert('Progress updated sucessfully')
+						actions.getProfile()
+						
+						return result
+
+						
+					} else{
+						const errorData = await resp.json();
+						throw new Error(errorData.msg || 'update failed');
+					}
+					}catch (error){
+						alert('Submit update failed')
+						console.log(error)
+
+				};
+
+		},
 		}
-	};
-};
+	}
+}
 
-export default getState;
+	export default getState
