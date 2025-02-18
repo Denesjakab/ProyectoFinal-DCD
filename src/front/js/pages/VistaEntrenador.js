@@ -29,7 +29,6 @@ const VistaEntrenador = () => {
                                 <Link to={`/trainer/cliente/${client.client.id}`}>
                                     <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
                                 </Link>
-
                             </div>
                         )
                     })

@@ -1,10 +1,9 @@
 
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
-import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
-import { FormEmail } from "../component/email.jsx";
+
 
 export const Register = () => {
     const { store, actions } = useContext(Context)
@@ -46,15 +45,14 @@ export const Register = () => {
                         } else {
                             console.log("Error al iniciar sesión después del registro.")
                         }
-                    } else {
-                        console.log("Error en el registro del usuario.")
                     }
                 } catch (error) {
+                    setErrorData(<p className="text-danger">Already registered email.</p>)
                     console.error("Error en el proceso de registro/login:", error)
                 }
             }
         } else {
-            setErrorData(<p className="text-danger">Completa el formulario.</p>)
+            setErrorData(<p className="text-danger">Required fields.</p>)
         }
     };
 

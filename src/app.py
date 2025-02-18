@@ -142,12 +142,42 @@ def login():
     if user:
         check_password = bcrypt.check_password_hash(user.password, str(body['password']))
 
-    if user is None or check_password is False:
+    if user is None or check_password is False or user.is_active is False:
         return jsonify({'msg': 'Usario o contraseña no validos'}), 400
     
     access_token = create_access_token(identity=user.email)
 
     return jsonify({ 'token': access_token, 'role': user.role }), 200
+
+@app.route('/cancel-myself', methods=['GET'])
+@jwt_required()
+def cancel():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    user.is_active = False
+    db.session.commit()
+
+    return jsonify({'msg': "Cliente desactivado."}), 200
+
+@app.route('/cancel-client/<int:client_id>', methods=['GET'])
+@jwt_required()
+def cancel_client(client_id):
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    client = User.query.get(client_id)
+    if not client:
+        return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    client.is_active = False
+    db.session.commit()
+    
+    return jsonify({'Client cancelado': client.serialize()}), 200
+
 
 
 @app.route('/private', methods=['GET'])
@@ -161,7 +191,7 @@ def protected():
 @jwt_required()
 def get_info_client():
     mail_user = get_jwt_identity()
-    user = User.query.filter_by(email = mail_user).first()
+    user = User.query.filter_by(email=mail_user).first()
     progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
     plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
 
@@ -177,7 +207,7 @@ def get_list_clients():
     if user.role != "trainer":
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
-    list_clients = db.session.query(User, Progress).join(Progress).filter(User.email != mail_user).all()
+    list_clients = db.session.query(User, Progress).join(Progress).filter(User.email != mail_user, User.is_active == True).all()
     result = []
     for user, progress in list_clients:
         result.append({
@@ -210,6 +240,7 @@ def get_client_info(client_id):
         'Client': client.serialize(),
         'Progress': progress_data,
         "Plan": plan_data}), 200
+
 
 @app.route('/profileclient', methods=['GET'])
 @jwt_required()
