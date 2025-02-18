@@ -78,10 +78,6 @@ export const Login = () => {
                 </div>
             </div>
         </div>
-        //         <FormEmail
-        //         title="Welcome Back!"
-        //         login="Log In">
-        //         </FormEmail>
-        //
+
     )
 }

@@ -106,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-      getClients: async (userToken) => {
+			getClients: async (userToken) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
 						headers: { "Authorization": `Bearer ${userToken}` }
@@ -114,7 +114,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					)
 					if (response.status === 401) {
-						throw new Error("token invalido")
+						const error = new Error("token invalido")
+						error.statusCode = 401
+						throw error
 					}
 					if (response.status === 403) {
 						throw new Error("usuario no autorizado")
@@ -128,9 +130,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return data
 				} catch (error) {
 					console.log("error al obtener los clientes", error)
+					return error.statusCode
 				}
 			},
-      
+
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
 				try {
@@ -154,7 +157,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-      
+			logout: async () => {
+				localStorage.removeItem("token")
+				setStore({ clients: []})
+			}
+			
+
 		}
 	};
 };
