@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -17,9 +19,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {
 				email: "",
 				password: "",
-				name: ""
+				name: "",
+
+
 			},
+
+
+			profile:null, 
+			currentUser: null,
+
+			
+
 			clients: [],
+
+			selectedClient: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -105,6 +118,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+      
+			getProfile: async () => {
+				const token = localStorage.getItem('token');
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/profileclient", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					});
+
+					if (!resp.ok) {
+						const errorData = await resp.json();
+						throw new Error(errorData.msg || "Error al obtener el perfil del cliente");
+					}
+
+					const data = await resp.json();
+					setStore({ profile: data });
+					setStore({ currentUser: data })
+					return data;
+				} catch (error) {
+					console.error("Error al obtener los datos del cliente:", error.message);
+					return false;
+				}
+			},
 
 			getClients: async (userToken) => {
 				try {
@@ -126,12 +166,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json()
 					setStore({ clients: data })
-					console.log("estos son mis datos", data)
 					return data
 				} catch (error) {
 					console.log("error al obtener los clientes", error)
 					return error.statusCode
 				}
+			},
+
+			setSelectedClient: (client) => {
+				setStore({ selectedClient: client });
 			},
 
 			firstProgress: async (dataUser) => {
@@ -167,4 +210,87 @@ const getState = ({ getStore, getActions, setStore }) => {
 	};
 };
 
-export default getState;
+			newPlan: async (dataPlan) => {
+				const token = localStorage.getItem("token")
+				console.log(dataPlan);
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/new-plan", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify(dataPlan)
+					})
+
+					const data = await resp.json()
+					return data;
+				} catch (error) {
+					console.error("Error en new_plan:", error.message)
+					return false
+				}
+
+			},
+
+			uploadFile: async (file) => {
+				try {
+					let formData = new FormData()
+					formData.append("file", file)
+
+					let response = await fetch(process.env.BACKEND_URL + "/upload", {
+						method: "POST",
+						body: formData
+					});
+
+					let result = await response.json()
+
+					if (result.url) {
+						return result.url
+					} else {
+						console.error("Error al subir la imagen:", result)
+						return null
+					}
+				} catch (error) {
+					console.error("Error en la subida de imagen:", error)
+					return null
+				}
+			},
+        
+			updateProgress: async () => {
+				const token = localStorage.getItem('token');
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/new-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+						body: JSON.stringify(formData)
+					});
+
+					const result = await resp.json();
+
+					if (resp.ok){
+						alert('Progress updated sucessfully')
+						actions.getProfile()
+						
+						return result
+
+						
+					} else{
+						const errorData = await resp.json();
+						throw new Error(errorData.msg || 'update failed');
+					}
+					}catch (error){
+						alert('Submit update failed')
+						console.log(error)
+
+				};
+
+		},
+		}
+	}
+}
+
+	export default getState

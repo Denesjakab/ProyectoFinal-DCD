@@ -32,22 +32,19 @@ const VistaEntrenador = () => {
 
                 <div className='lista-clientes'>
                     {store.clients.map((client, index) => {
-                        console.log("holi", store.clients)
                         return (
                             <div className='cliente'
                                 key={index}
                             >
                                 <p><strong>{client.client.name}</strong></p>
                                 <Link to={`/trainer/cliente/${client.client.id}`}>
-                                    <button className='view-details'>View details</button>
+                                    <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
                                 </Link>
 
                             </div>
                         )
                     })
                     }
-
-
                 </div>
             </div>
         </div>

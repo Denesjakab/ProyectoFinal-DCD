@@ -24,7 +24,7 @@ export const Home = () => {
 							<p className="lead">Achieve your fitness goals with expert coaching tailored to your needs. Start your journey toward a healthier, stronger you today</p>
 							<hr className="my-4"></hr>
 							<p>Fitness is a personal journey that requires dedication and the right mindset. As your trainer, I work with you to understand your unique goals and challenges, creating a plan that supports both your immediate needs and long-term success. Whether you're starting out or refining your skills, every session is designed to push you further, building strength, confidence, and resilience that extend beyond the gym.</p>
-							<Link to="/register">
+							<Link to="/PerfilCliente">
 								<p className="lead py-5">
 									<button className="btn bg-warning btn-lg" href="#" role="button">Your Area</button>
 								</p>
