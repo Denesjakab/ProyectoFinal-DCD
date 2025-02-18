@@ -203,12 +203,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: async () => {
 				localStorage.removeItem("token")
 				setStore({ clients: []})
-			}
+			},
 			
 
-		}
-	};
-};
+// 		}
+// 	};
+// };
 
 			newPlan: async (dataPlan) => {
 				const token = localStorage.getItem("token")

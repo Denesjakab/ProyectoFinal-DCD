@@ -7,4 +7,5 @@ export const Footer = () => (
 			Copyright 2025
 		</p>
 	</footer>
+	
 );
