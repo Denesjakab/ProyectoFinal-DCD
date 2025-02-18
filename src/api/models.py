@@ -13,13 +13,13 @@ class User(db.Model):
     age = db.Column(db.Integer)
     height = db.Column(db.Numeric(5,2))
     goal = db.Column(db.Enum('gain', 'lose', name='goal_enum'))
-    goal_kg = db.Column(db.Integer)
+    goal_kg = db.Column(db.Numeric(5,2))
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     is_active = db.Column(db.Boolean(), nullable=False, default=True)
 
-    progress = db.relationship('Progress', back_populates='user')
-    plans = db.relationship('Plan', back_populates='user')
+    progress = db.relationship('Progress', back_populates='user', cascade="all, delete", passive_deletes=True)
+    plans = db.relationship('Plan', back_populates='user', cascade="all, delete", passive_deletes=True)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -52,7 +52,7 @@ class Progress(db.Model):
     progress_percentage = db.Column(db.Integer)
     notes = db.Column(db.String(255))
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     user = db.relationship(User, back_populates='progress')
 
     def calculate_progress_percentage(self):
@@ -113,7 +113,7 @@ class Plan(db.Model):
     file_url = db.Column(db.String(255))
     notes = db.Column(db.String(255))
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     user = db.relationship(User, back_populates='plans')
 
     def __repr__(self):

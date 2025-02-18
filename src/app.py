@@ -12,7 +12,12 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_cors import CORS
+import cloudinary
+import cloudinary.uploader
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -41,6 +46,7 @@ def revoked_token_callback(_, __):
     return jsonify({'msg': 'Este token ha sido revocado.'}), 401
 
 bcrypt = Bcrypt(app)
+CORS(app)
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -107,7 +113,7 @@ def new_user():
     new_user = User(
         name = body['name'],
         email = body['email'],
-        password = bcrypt.generate_password_hash(body['password']).decode('utf-8')
+        password = bcrypt.generate_password_hash(str(body['password'])).decode('utf-8')
     )
     db.session.add(new_user)
     db.session.commit()
@@ -157,8 +163,9 @@ def get_info_client():
     mail_user = get_jwt_identity()
     user = User.query.filter_by(email = mail_user).first()
     progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
 
-    return jsonify({'Info': (user.serialize(), progress.serialize())}), 200
+    return jsonify({'Info': user.serialize(), "Progress": progress.serialize(), "Plan": plan.serialize()}), 200
 
 
 @app.route('/list-clients', methods=['GET'])
@@ -174,7 +181,7 @@ def get_list_clients():
     result = []
     for user, progress in list_clients:
         result.append({
-            "user": user.serialize(),
+            "client": user.serialize(),
             "progress": progress.serialize()
         })
 
@@ -193,8 +200,47 @@ def get_client_info(client_id):
     client = User.query.get(client_id)
     if not client:
         return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    progress = Progress.query.filter_by(user_id=client_id).order_by(Progress.date.desc()).first()
+    plan = Plan.query.filter_by(user_id=client_id).order_by(Plan.date.desc()).first()
+    progress_data = progress.serialize()if progress else None
+    plan_data=plan.serialize()if plan else None
 
-    return jsonify({"Client": client.serialize()}), 200
+    return jsonify({
+        'Client': client.serialize(),
+        'Progress': progress_data,
+        "Plan": plan_data}), 200
+
+@app.route('/profileclient', methods=['GET'])
+@jwt_required()
+def get_profile(): 
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+
+    if not user: 
+        return jsonify({'msg':'user not found'}), 404
+    
+    last_progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+        
+    return jsonify({
+        'id': user.id,
+        'name': user.name,
+        'age': user.age,
+        'height': str(user.height), 
+        'goal': user.goal,
+        'goal_kg': user.goal_kg, 
+        'progress': {
+            'weight': str(last_progress.weight) if last_progress else None, 
+            'waist': str(last_progress.waist) if last_progress else None,
+            'abdomen': str(last_progress.abdomen) if last_progress else None,
+            'arm': str(last_progress.arm) if last_progress else None,
+            'leg': str(last_progress.leg) if last_progress else None,
+            'progress_percentage':last_progress.progress_percentage if last_progress else None,
+        }
+            
+        })
+
+
 
 #------------------------------- Progress -----------------------------------
 VALID_GOAL = {'gain', 'lose'}
@@ -202,7 +248,7 @@ VALID_GOAL = {'gain', 'lose'}
 @jwt_required()
 def first_progress():
     body = request.get_json(silent=True)
-    if not body:
+    if body is None:
         return jsonify({'msg': 'Debes enviar un body'}), 400
 
     current_user = get_jwt_identity()
@@ -224,7 +270,7 @@ def first_progress():
         height = float(body['height'])
         weight = float(body['weight'])
         goal = body['goal']
-        goal_kg = int(body['goal_kg'])
+        goal_kg = float(body['goal_kg'])
         if goal not in VALID_GOAL:
             return jsonify ({'msg': f'El objetivo debe ser : {",".join(VALID_GOAL)}'}), 400
         if height <= 0 or weight <= 0 or goal_kg < 0:
@@ -236,7 +282,7 @@ def first_progress():
         user.goal_kg = goal_kg
 
     except ValueError:
-        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'})
+        return jsonify ({'msg': 'Los valores de altura y peso deben ser flotantes y goal_kg un entero'}), 400
     
     optional_fields = ['waist', 'abdomen', 'arm', 'leg']
     for field in optional_fields:
@@ -251,8 +297,8 @@ def first_progress():
 
     try:
         progress.progress_percentage = progress.calculate_progress_percentage()
-    except Exception:
-        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'})
+    except ValueError:
+        return jsonify ({'msg': 'Error al calcular el porcentaje de progreso'}), 400
 
     db.session.commit()
 
@@ -267,7 +313,7 @@ def first_progress():
 @jwt_required()
 def new_progress():
     body = request.get_json(silent=True)
-    if not body:
+    if body is None:
         return jsonify({'msg': 'Debes enviar un body'}), 400
 
     current_user = get_jwt_identity()
@@ -314,6 +360,94 @@ def new_progress():
         'progress_percentage': new_progress.progress_percentage,
         'weight': new_progress.weight
     }), 200
+
+
+app.route('/update-progress', methods = ['POST'])
+@jwt_required()
+def update_progress():
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+
+    if not user:
+        return jsonify({'msg': 'Cliente not found'}), 404
+    
+    data = request.get_json()
+    
+    new_progress = Progress(
+            user_id=user.id,
+            weight=float(data.get("weight", 0)),
+            waist=float(data.get("waist", 0)),
+            abdomen=float(data.get("abdomen", 0)),
+            arm=float(data.get("arm", 0)),
+            leg=float(data.get("leg", 0)),
+            photo_url=data.get("photo_url", None),
+            notes=data.get("notes", None)
+        )
+
+    new_progress.user = user
+    new_progress.progress_percentage = new_progress.calculate_progress_percentage()
+
+    db.session.add(new_progress)
+    db.session.commit()
+
+    return jsonify({'msg': 'progresso updated successfull', 'progress': new_progress.serialize()}), 200@app.route('/update-progress', methods = ['POST'])
+    
+
+
+
+#--------------------------------- Plan -------------------------------------
+
+@app.route('/new-plan', methods=['POST'])
+@jwt_required()
+def add_plan_client():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+    body = request.get_json(silent=True)
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    if body is None:
+        return jsonify({'msg': 'Debes enviar un body'}), 400
+    if 'user_id' not in body or 'file_url' not in body:
+        return jsonify({'msg': 'Es necesario el usuario y la URL del plan'}), 400
+
+    client = User.query.get(body['user_id'])
+    if not client:
+       return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    new_plan = Plan(
+        user_id = client.id,
+        file_url = body['file_url'],
+        user = client
+    )
+    new_plan.notes = body.get('notes', None)
+
+    db.session.add(new_plan)
+    db.session.commit()
+
+    return jsonify({
+        'msg': 'Plan subido',
+        'Cliente': client.email,
+        'File': new_plan.file_url
+    }), 200
+
+    #--------------------------------- Cloudinary -------------------------------------
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # Verificar si el usuario envió un archivo
+    file = request.files.get('file')
+    if not file:
+        return jsonify({"error": "No se ha proporcionado un archivo"}), 400
+
+    try:
+        # Subir el archivo a Cloudinary
+        upload_result = cloudinary.uploader.upload(file)
+        return jsonify({"url": upload_result["secure_url"]}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

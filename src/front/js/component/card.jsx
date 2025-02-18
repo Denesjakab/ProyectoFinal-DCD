@@ -10,7 +10,7 @@ export const Card = (props) => {
                 <img src={props.imageUrl} className="card-img-top" alt="..."/>
                      <div className="card-body">
                          <h5 className="card-title text-warning">{props.title}</h5>
-                         <hr class="my-4"></hr>
+                         <hr className="my-4"></hr>
                             <p className="card-text">{props.description}</p>
                         <div className=" text-warning fst-italic"><p>{props.text}</p></div> 
                         <a href={props.link} className="card-link text-warning fst-italic ">{props.linkName}</a>
