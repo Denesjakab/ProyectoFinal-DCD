@@ -1,28 +1,26 @@
 import React from "react";
-import injectContext from "./store/appContext";
-import ScrollToTop from "./component/scrollToTop";
-import CancelPlan from "./pages/CancelPlan";
-import PerfilCliente from "./pages/PerfilCliente";
-import UploadClientProgram from "./pages/UploadClientProgram";
-import EntrenadorCLIENTE from "./pages/EntrenadorCLIENTE";
-import VistaEntrenador from "./pages/VistaEntrenador";
-import UpdateProgress from "./pages/UpdateProgress";
-
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
+
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+
+import VistaEntrenador from "./pages/VistaEntrenador";
+
+import UpdateProgress from "./pages/UpdateProgress";
+import CancelPlan from "./pages/CancelPlan";
 import { Register } from "./pages/register";
+import PerfilCliente from "./pages/PerfilCliente";
+
+import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import { LandingPage } from "./pages/landingPage";
 import { RegisterData } from "./pages/registerData";
 import { HomeTrainer } from "./pages/homeTrainer";
-
-
 
 //create your first component
 const Layout = () => {
@@ -46,13 +44,15 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
-                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente/:id"/>
+                        <Route element={<h1>Not found!</h1>} />
+
                         <Route element={<VistaEntrenador/>} path="/trainer"/>
+
                         <Route element={<UpdateProgress/>} path="/PerfilCliente/updateProgress"/>
                         <Route element={<CancelPlan/>} path="/perfilcliente/Cancelplan"/>
                         <Route element={<PerfilCliente/>} path="/PerfilCliente"/>
-                        <Route element={<h1>Not found!</h1>} />
+
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>

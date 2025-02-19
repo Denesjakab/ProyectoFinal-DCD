@@ -17,30 +17,30 @@ export const LandingPage = () => {
 
         <div className="home-body ">
 
-            {!isloggedin ? (<>
+            {!isloggedin ? (<>    
+            
+             <div className="jumbotron-home" style={{ backgroundImage: `url(${homeImg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
-                <div className="jumbotron-home" style={{ backgroundImage: `url(${homeImg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-
-                    <div className="jumbotron-text text-light px-5 pt-5">
-                        <div className="row">
-                            <div className="col-12">
-                                <h1 className="display-4 pt-5 py-5 ">Transform your body,<br />
-                                    transform your life.
-                                </h1>
-                                <p className="lead">Achieve your fitness goals with expert coaching tailored to your needs. Start your journey toward a healthier, stronger you today</p>
-                                <hr className="my-4"></hr>
-                                <p>Fitness is a personal journey that requires dedication and the right mindset. As your trainer, I work with you to understand your unique goals and challenges, creating a plan that supports both your immediate needs and long-term success. Whether you're starting out or refining your skills, every session is designed to push you further, building strength, confidence, and resilience that extend beyond the gym.</p>
-                                <Link to="/register">
-                                    <p className="lead py-5">
-                                        <button className="btn bg-warning btn-lg" href="#" role="button">Join Now!</button>
-                                    </p>
-                                </Link>
-                            </div>
+                <div className="jumbotron-text text-light px-5 pt-5">
+                    <div className="row">
+                        <div classname="col-12">
+                            <h1 className="display-4 pt-5 py-5 ">Transform your body,<br />
+                                transform your life.
+                            </h1>
+                            <p className="lead">Achieve your fitness goals with expert coaching tailored to your needs. Start your journey toward a healthier, stronger you today</p>
+                            <hr class="my-4"></hr>
+                            <p>Fitness is a personal journey that requires dedication and the right mindset. As your trainer, I work with you to understand your unique goals and challenges, creating a plan that supports both your immediate needs and long-term success. Whether you're starting out or refining your skills, every session is designed to push you further, building strength, confidence, and resilience that extend beyond the gym.</p>
+                            <Link to="/register">
+                                <p className="lead py-5">
+                                    <a className="btn bg-warning btn-lg" href="#" role="button">Join Now!</a>
+                                </p>
+                            </Link>
                         </div>
                     </div>
-
-
                 </div>
+
+
+            </div>
 
 
                 <div className="d-flex justify-content-around p-5">
@@ -66,11 +66,11 @@ export const LandingPage = () => {
 
 
                 </div> </>) : (<Home />)
-
+                
                 // a ? b : (c ? d : e)
-
-
-            }
+                
+                
+                }
 
 
 
