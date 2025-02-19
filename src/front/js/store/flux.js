@@ -26,10 +26,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			clients: [],
 
 
-			profile:null, 
+			profile: null,
 			currentUser: null,
 
-			
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -121,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(userToken)
 					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
 						headers: { "Authorization": `Bearer ${userToken}` }
-				
+
 					}
 					)
 					if (response.status === 401) {
@@ -131,14 +131,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("error al obtener los datos")
 					}
 					const data = await response.json()
-					setStore({clients: data})
-					console.log("estos son mis datos",data)
+					setStore({ clients: data })
+					console.log("estos son mis datos", data)
 					return data
-				} catch(error){
-					console.log("error al obtener los clientes",error)
+				} catch (error) {
+					console.log("error al obtener los clientes", error)
 				}
 
-	
+
 			},
 
 			firstProgress: async (dataUser) => {
@@ -165,7 +165,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
-			
+
 			getProfile: async () => {
 				const token = localStorage.getItem('token');
 
@@ -184,6 +184,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await resp.json();
+					console.log('esto son los datos', data)
 					setStore({ profile: data });
 					setStore({ currentUser: data })
 					return data;
@@ -193,7 +194,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-      getClients: async (userToken) => {
+			getClients: async (userToken) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
 						headers: { "Authorization": `Bearer ${userToken}` }
@@ -217,7 +218,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("error al obtener los clientes", error)
 				}
 			},
-      
+
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
 				try {
@@ -241,8 +242,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-      
-			updateProgress: async () => {
+
+			updateProgress: async (formData) => {
 				const token = localStorage.getItem('token');
 
 				try {
@@ -257,26 +258,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const result = await resp.json();
 
-					if (resp.ok){
+					if (resp.ok) {
 						alert('Progress updated sucessfully')
-						actions.getProfile()
-						
+						getActions().getProfile()
+
 						return result
 
-						
-					} else{
+
+					} else {
 						const errorData = await resp.json();
 						throw new Error(errorData.msg || 'update failed');
 					}
-					}catch (error){
-						alert('Submit update failed')
-						console.log(error)
+				} catch (error) {
+					alert('Submit update failed')
+					console.log(error)
 
 				};
 
-		},
+			},
+			uploadFile: async (file) => {
+				try {
+					let formData = new FormData()
+					formData.append("file", file)
+
+					let response = await fetch(process.env.BACKEND_URL + "/upload", {
+						method: "POST",
+						body: formData
+					});
+
+					let result = await response.json()
+
+					if (result.url) {
+						return result.url
+					} else {
+						console.error("Error al subir la imagen:", result)
+						return null
+					}
+				} catch (error) {
+					console.error("Error en la subida de imagen:", error)
+				}
+			},
 		}
 	}
-}
+	}
 
-	export default getState
+
+
+export default getState

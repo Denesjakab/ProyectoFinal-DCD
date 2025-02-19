@@ -30,6 +30,7 @@ export const RegisterData = () => {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+        console.log(formData)
     }
 
     const handleImageUpload = async (e) => {

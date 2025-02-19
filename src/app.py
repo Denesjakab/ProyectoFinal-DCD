@@ -236,6 +236,7 @@ def get_profile():
             'arm': str(last_progress.arm) if last_progress else None,
             'leg': str(last_progress.leg) if last_progress else None,
             'progress_percentage':last_progress.progress_percentage if last_progress else None,
+            'photo_url': last_progress.photo_url if last_progress else None
         }
             
         })

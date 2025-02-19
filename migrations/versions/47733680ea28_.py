@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/01569cd03f1b_.py
-Revision ID: 01569cd03f1b
+Revision ID: 47733680ea28
 Revises: 
-Create Date: 2025-02-12 17:50:43.929371
-========
-Revision ID: 6617d3a6ed27
-Revises: 
-Create Date: 2025-02-13 14:02:06.479558
->>>>>>>> 3e51498 (funciones de obtener datos cliente hecha):migrations/versions/6617d3a6ed27_.py
+Create Date: 2025-02-19 11:28:41.584898
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/01569cd03f1b_.py
-revision = '01569cd03f1b'
-========
-revision = '6617d3a6ed27'
->>>>>>>> 3e51498 (funciones de obtener datos cliente hecha):migrations/versions/6617d3a6ed27_.py
+revision = '47733680ea28'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,7 +27,7 @@ def upgrade():
     sa.Column('age', sa.Integer(), nullable=True),
     sa.Column('height', sa.Numeric(precision=5, scale=2), nullable=True),
     sa.Column('goal', sa.Enum('gain', 'lose', name='goal_enum'), nullable=True),
-    sa.Column('goal_kg', sa.Integer(), nullable=True),
+    sa.Column('goal_kg', sa.Numeric(precision=5, scale=2), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),

@@ -4,7 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 import CancelPlan from "./pages/CancelPlan";
 import PerfilCliente from "./pages/PerfilCliente";
 import UploadClientProgram from "./pages/UploadClientProgram";
-import EntrenadorCLIENTE from "./pages/EntrenadorCLIENTE";
+
 import VistaEntrenador from "./pages/VistaEntrenador";
 import UpdateProgress from "./pages/UpdateProgress";
 
@@ -14,14 +14,14 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import UploadClientProgram from "./pages/UploadClientProgram";
+
 import EntrenadorCLIENTE from "./pages/EntrenadorCLIENTE";
-import injectContext from "./store/appContext";
 
-import VistaEntrenador from "./pages/VistaEntrenador";
 
-import UpdateProgress from "./pages/UpdateProgress";
-import CancelPlan from "./pages/CancelPlan";
+
+
+
+
 import { Register } from "./pages/register";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -56,7 +56,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
 
-                        <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
+    
                         <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente/:id"/>
                         <Route element={<VistaEntrenador/>} path="/trainer"/>
 
@@ -66,7 +66,7 @@ const Layout = () => {
 
 
                         <Route element={<UploadClientProgram/>} path="/upload-client-program"/>
-                        <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/>
+                        {/* <Route element={<EntrenadorCLIENTE/>} path="/trainer/cliente"/> */}
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
