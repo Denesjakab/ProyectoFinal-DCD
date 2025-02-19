@@ -56,7 +56,7 @@ const PerfilCliente = () => {
           </div>
           <div className='boton-cliente'>
             <Link to="/PerfilCliente/updateProgress">
-              <button className="update-progres">Update Progress</button>
+              <button className="update-progress">Update Progress</button>
             </Link>
           </div>
         </div>

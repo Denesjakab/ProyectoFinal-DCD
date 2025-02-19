@@ -36,6 +36,7 @@
    cursor: pointer;
    background-color: #FFD700;
    color: black;
+   margin-left: 120px;
 }
   .medidas[type="number"]::-webkit-inner-spin-button,
   .medidas[type="number"]::-webkit-outer-spin-button {
