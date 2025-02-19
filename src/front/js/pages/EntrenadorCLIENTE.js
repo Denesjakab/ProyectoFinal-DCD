@@ -1,15 +1,12 @@
 import React, { useEffect, useContext } from 'react'
 import "../../styles/EntrenadorCLIENTE.css";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Context } from "../store/appContext.js";
 
 const EntrenadorCLIENTE = () => {
-
-
-
   let params = useParams()
-
   const { store, actions } = useContext(Context)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const userToken = localStorage.getItem("token")
@@ -23,7 +20,13 @@ const EntrenadorCLIENTE = () => {
     }
   }
 
-  // const client= store.clients.length > 0 ? store.clients[0]: null
+  const sendCancel = async (e) => {
+    e.preventDefault()
+
+    actions.cancelClient(selectedClient.client.id)
+    navigate("/trainer")
+  }
+
   return (
     <div className='entrenador-cliente'>
       {store.clients.length > 0 ? (
@@ -60,7 +63,7 @@ const EntrenadorCLIENTE = () => {
             </div>
           </div>
           <div className='boton-funciones'>
-            <button className='cancel-member'>Cancel Client Membership</button>
+            <button className='cancel-member' onClick={sendCancel}>Cancel Client Membership</button>
             <Link to='/upload-client-program'>
               <button className='upload-program'>Upolad Client Program</button>
             </Link>

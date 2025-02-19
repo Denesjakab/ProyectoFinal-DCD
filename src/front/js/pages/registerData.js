@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext.js";
 import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
 import { number } from "prop-types";
@@ -25,7 +25,6 @@ export const RegisterData = () => {
     })
 
     const [errorData, setErrorData] = useState("")
-    const [imageMessage, setImageMessage] = useState("")
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -69,7 +68,7 @@ export const RegisterData = () => {
                 }
             } else setErrorData(<p className="text-danger">Goal weight invalid.</p>)
         } else {
-            setErrorData(<p className="text-danger">Faltan campos obligatorios.</p>)
+            setErrorData(<p className="text-danger">Required fields.</p>)
         }
     }
 

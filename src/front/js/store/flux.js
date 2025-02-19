@@ -20,15 +20,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				email: "",
 				password: "",
 				name: "",
-
-
 			},
 
-
-			profile:null, 
+			profile: null,
 			currentUser: null,
-
-			
 
 			clients: [],
 
@@ -63,10 +58,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return elm;
 				});
 
-				//reset the global store
 				setStore({ demo: demo });
-
-
 			},
 
 			setUser: (data) => {
@@ -118,7 +110,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-      
+
+			cancelMyMember: async () => {
+				const token = localStorage.getItem('token')
+				const resp = await fetch(process.env.BACKEND_URL + "/cancel-myself", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				})
+
+				if (!resp.ok) {
+					const errorData = await resp.json();
+					throw new Error(errorData.msg || "Error al cancelar suscripción")
+				}
+
+				const data = await resp.json()
+				return data
+			},
+
+			cancelClient: async (clientId) => {
+				const token = localStorage.getItem('token')
+				const resp = await fetch(process.env.BACKEND_URL + `/cancel-client/${clientId}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				})
+
+				if (!resp.ok) {
+					const errorData = await resp.json();
+					throw new Error(errorData.msg || "Error al cancelar suscripción")
+				}
+
+				await getActions().getClients(token)
+				const data = await resp.json()
+				return data
+			},
+
 			getProfile: async () => {
 				const token = localStorage.getItem('token');
 
@@ -145,6 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 
 			getClients: async (userToken) => {
 				try {

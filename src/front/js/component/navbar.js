@@ -1,7 +1,9 @@
+
 import React, { useEffect } from "react";
 import { useState, useContext} from "react";
 import { NavbarLogged } from "./navbarLogged";
 import { Link, useLocation, useNavigate, } from "react-router-dom";
+
 import "../../styles/navbar.css";
 import Logo from "../../img/logo.png"
 import { Context } from "../store/appContext.js";
@@ -42,26 +44,19 @@ export const Navbar = () => {
 		<div>
 			{isloggedin  === false ? (<>
 
+
 			<nav className="navbar custom-navbar">
 				<div className="container">
-
-
-					{/* <Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link> */}
-					<img src={Logo} style={{ maxHeight: "5%", maxWidth: "5%" }}></img>
+					<img src={Logo} style={{ maxHeight: "10%", maxWidth: "10%" }}></img>
 					<div className="ml-auto">
-						{/* <Link to="/demo">
-								<button className="btn btn-primary">Check the Context in action</button>
-							</Link> */}
-
 						<Link to="/login">
-							<button className="btn btn-warning  ms-3">Log in</button>
+							<button className="btn btn-warning  m-3">Log in</button>
 						</Link>
 
 					</div>
 				</div>
 			</nav>
+
 			 </>) : (<nav className="navbar custom-navbar">
 				<div className="container">
 
@@ -85,6 +80,7 @@ export const Navbar = () => {
 			</nav>)
 
 			} 
+
 		</div>
 	);
 };
