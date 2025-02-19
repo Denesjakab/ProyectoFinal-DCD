@@ -22,7 +22,7 @@ const CancelPlan = () => {
       <h1 className='cancel-title'>Why Do You Want To Cancel Your Plan?</h1>
       <div className='opciones-generales'>
         <div className='opciones-izquierda'>
-          <input type="checkbox" className="btn-check border" id="razon1" autoComplete="off" />
+          <input type="checkbox" className="btn-check " id="razon1" autoComplete="off" />
           <label className="btn btn-outline-warning" htmlFor="razon1">I am moving to a new location</label>
           <input type="checkbox" className="btn-check" id="razon2" autoComplete="off" />
           <label className="btn btn-outline-warning" htmlFor="razon2">I need to cut back on expenses</label>

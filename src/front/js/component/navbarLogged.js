@@ -1,9 +1,14 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import "../../styles/navbar.css";
 import Logo from "../../img/logo.png"
 // import { NavbarLogged } from "./navbarLogged";
-export const Navbar = () => {
+import { Context } from "../store/appContext.js";
+
+export const NavbarLogged = ({handleLoggout}) => {
+
+    const { store, actions } = useContext(Context)
+
     return (
 
         <nav className="navbar custom-navbar" style={{ color: "rgba(15, 15, 15, 0.992)" }}>
@@ -19,13 +24,15 @@ export const Navbar = () => {
 
 
                     <div className="dropdown">
-                        <button className="btn btn btn-warning  ms-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className="btn btn btn-warning  ms-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                        >
                             Name
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <Link to="/">
-                                <li><a className="dropdown-item" href="#">Logout</a></li>
-                            </Link>
+                           
+                                <li><a className="dropdown-item" href="#"
+                                    onClick={handleLoggout}>Logout</a></li>
+                            
 
                         </ul>
                     </div>

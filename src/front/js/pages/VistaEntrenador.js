@@ -1,17 +1,28 @@
 import React, { useContext, useEffect } from 'react'
 
 import '../../styles/VistaEntrenador.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext.js";
 
-
 const VistaEntrenador = () => {
-    const { store, actions } = useContext(Context)
 
+
+    const { store, actions } = useContext(Context)
+    const navigate = useNavigate()
+    const getClients = async () => {
+        const userToken = localStorage.getItem("token")
+        let storeClients = await actions.getClients(userToken)
+        console.log(storeClients)
+        if (storeClients === 401) {
+            navigate("/login")
+        }
+    }
     useEffect(() => {
         const userToken = localStorage.getItem("token")
-        actions.getClients(userToken)
-    }, [])
+        getClients()
+
+
+    }, [localStorage.getItem("token")])
 
 
     return (
@@ -30,13 +41,15 @@ const VistaEntrenador = () => {
                                     <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
                                 </Link>
                             </div>
+
                         )
                     })
                     }
                 </div>
             </div>
-        </div>
-    )
-}
+        </div>)}
 
-export default VistaEntrenador
+
+
+
+    export default VistaEntrenador
