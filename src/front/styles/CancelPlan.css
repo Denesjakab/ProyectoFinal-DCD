@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    background-color: rgb(215, 215, 215);
 }
 .opciones-generales{
     display: flex;
@@ -31,6 +33,7 @@
 }
 
 .cancel-button{
+    
     padding: 10px 20px;
     border: 2px solid #FFD700;
     border-radius: 20px;
