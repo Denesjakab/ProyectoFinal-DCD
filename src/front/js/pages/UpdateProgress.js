@@ -4,7 +4,7 @@ import "../../styles/UpdateProgress.css";
 import { Context } from '../store/appContext';
 
 const UpdateProgress = () => {
-  const {store, actions} = useContext(Context);
+  const { store, actions } = useContext(Context);
   const [formData, setFormData] = useState({
     weight: '',
     waist: '',
@@ -13,13 +13,11 @@ const UpdateProgress = () => {
     leg: '',
     photo_url: '',
     notes: '',
-  }); 
+  });
 
   const navigate = useNavigate()
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     if (store.currentUser?.progress) {
       setFormData({
         weight: store.currentUser?.progress.weight || '',
@@ -30,7 +28,7 @@ const UpdateProgress = () => {
         photo_url: store.currentUser?.progress.photo_url || '',
         notes: store.currentUser?.progress.notes || ''
       });
-    } else{
+    } else {
       navigate('/perfilcliente')
     }
   }, []);
@@ -43,7 +41,7 @@ const UpdateProgress = () => {
       alert("You Have to log IN");
       return;
     } else
-   actions.updateProgress(formData, actions);
+      actions.updateProgress(formData, actions);
   };
 
   const handleChange = (e) => {
@@ -57,36 +55,38 @@ const UpdateProgress = () => {
       });
     }
   };
- 
+
   return (
-    <div className="box-update">
+    <div className="home-body box-update text-white">
       <h1 className="titulo-progress">Track Your Progress!</h1>
 
       <form onSubmit={handleSubmit}>
         <p className="sizes">Weight</p>
-        <input className="medidas" type="number" placeholder="kg" value={formData.weight} onChange={handleChange}/>
+        <input className="medidas" type="number" placeholder="kg" value={formData.weight} onChange={handleChange} />
 
         <p className="sizes">Waist size</p>
-        <input className="medidas" type="number" placeholder="cm"  value={formData.waist} onChange={handleChange}/>
-          
+        <input className="medidas" type="number" placeholder="cm" value={formData.waist} onChange={handleChange} />
+
         <p className="sizes">Abdominal size</p>
-        <input  className="medidas" type="number" placeholder="cm"   value={formData.abdomen}  onChange={handleChange}/>
-         
+        <input className="medidas" type="number" placeholder="cm" value={formData.abdomen} onChange={handleChange} />
+
         <p className="sizes">Arm size</p>
-        <input className="medidas" type="number"  placeholder="cm"    value={formData.arm}  onChange={handleChange}/>
-          
+        <input className="medidas" type="number" placeholder="cm" value={formData.arm} onChange={handleChange} />
+
         <p className="sizes">Leg size</p>
-        <input  className="medidas" type="number" placeholder="cm" value={formData.leg} onChange={handleChange}/>
-    
+        <input className="medidas" type="number" placeholder="cm" value={formData.leg} onChange={handleChange} />
+
         <p className="sizes">Post a picture of your progress</p>
-        <input  className="medidas"  type="file" placeholder="post your progress photo" onChange={handleChange}/>
+        <input className="medidas" type="file" placeholder="post your progress photo" onChange={handleChange} />
 
         <p className="sizes">Notes</p>
-        <textarea  className="medidas"  placeholder="Notes about your progress"  value={formData.notes} onChange={handleChange}/>
-         
-        <button className="update-progres" type="submit">
-          Update Progress
-        </button>
+        <textarea className="medidas" placeholder="Notes about your progress" value={formData.notes} onChange={handleChange} />
+        <div className='d-flex justify-content-center'>
+          <button className="update btn" type="submit">
+            Update Progress
+          </button>
+        </div>
+
       </form>
     </div>
   );

@@ -252,6 +252,7 @@ def get_profile():
         return jsonify({'msg':'user not found'}), 404
     
     last_progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+    last_plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
         
     return jsonify({
         'id': user.id,
@@ -267,6 +268,9 @@ def get_profile():
             'arm': str(last_progress.arm) if last_progress else None,
             'leg': str(last_progress.leg) if last_progress else None,
             'progress_percentage':last_progress.progress_percentage if last_progress else None,
+        },
+        'plan': {
+            'file_url': str(last_plan.file_url) if last_plan else None
         }
             
         })
@@ -307,6 +311,7 @@ def first_progress():
         if height <= 0 or weight <= 0 or goal_kg < 0:
             return jsonify ({'msg': 'Los valores de altura peso y kg deben ser mayor que 0'})
         
+        user.age = body['age']
         user.height = height
         progress.weight = weight
         user.goal = goal
