@@ -31,7 +31,6 @@ const VistaEntrenador = () => {
                 <h1>Your Clients</h1>
 
                 <div className='lista-clientes'>
- front-end-get-clientes
                     {store.clients.map((client, index) => {
                         return (
                             <div className='cliente'
@@ -42,11 +41,15 @@ const VistaEntrenador = () => {
                                     <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
                                 </Link>
                             </div>
+
                         )
                     })
                     }
+                </div>
+            </div>
+        </div>)}
 
 
 
 
-export default VistaEntrenador
+    export default VistaEntrenador
