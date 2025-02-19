@@ -18,8 +18,9 @@
 }
 
 #fotoPerfil {
+    margin-left: 80px;
     border-radius: 30px;
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 .medida {

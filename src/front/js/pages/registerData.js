@@ -165,12 +165,12 @@ export const RegisterData = () => {
                             <input type="number" className="form-control" name="leg" id="legInput" value={formData.leg} onChange={handleChange} placeholder="Enter your leg measurement" />
                         </div>
                         <form id="upload-form" onSubmit={handleImageUpload}>
-                            <label htmlFor="file">Selecciona una foto:</label>
+                            <label className="py-2" htmlFor="file">Selecciona una foto:</label>
                             <input type="file" id="file" name="file" required />
 
-                            <button className="btn btn-warning m-1" type="submit">Subir Imagen</button>
+                            <button className="btn btn-warning m-1 py-2" type="submit">Subir Imagen</button>
 
-                            <label htmlFor="photo_url">URL:</label>
+                            <label className="py-3" htmlFor="photo_url">URL:</label>
                             <input type="text" id="photo_url" name="photo_url" readOnly value={formData.photo_url} />
                         </form>
 
