@@ -1,36 +1,46 @@
-.medidas{
-   width: 80%;
+.home-body {
+   background-color: rgba(15, 15, 15, 0.992);
+}
+
+form {
+   width: 50%;
+}
+
+.medidas {
+   width: 100%;
    padding: 8px;
    margin: 10px;
-   border: 2px solid black;
+   border: 2px solid rgb(253, 253, 253);
    border-radius: 20px;
    background-color: transparent;
    text-align: center;
    color: black;
+   background-color: white;
 }
 
-.box-update{
+.box-update {
    display: flex;
-   flex-direction: column; 
-   align-items: center; 
+   flex-direction: column;
+   align-items: center;
    color: white;
-   background-color:white;
+   background-color: white;
    padding: 30px;
 }
 
-.sizes{
+.sizes {
    margin-bottom: 0;
    margin-top: 20px;
-   color: black;
-}
-.titulo-progress{
-  color: black;
+   color: rgb(255, 255, 255);
 }
 
-.update-progres{
-   padding: 10px 20px;
-   border: 2px solid #FFD700;
-   border-radius: 20px;
+.titulo-progress {
+   color: rgb(255, 255, 255);
+}
+
+.update {
+   width: 50%;
+   height: 70px;
+   border-radius: 10px;
    background-color: transparent;
    font-size: 16px;
    cursor: pointer;
@@ -38,8 +48,9 @@
    color: black;
    margin-left: 120px;
 }
-  .medidas[type="number"]::-webkit-inner-spin-button,
-  .medidas[type="number"]::-webkit-outer-spin-button {
- -webkit-appearance: none;
- margin: 0;
+
+.medidas[type="number"]::-webkit-inner-spin-button,
+.medidas[type="number"]::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }

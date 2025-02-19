@@ -4,23 +4,41 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate } from 'react-router-dom';
 
 const PerfilCliente = () => {
-    const { store, actions } = useContext(Context);  
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const navigate = useNavigate()
-   
-  
-    useEffect(() => {
-      const token = localStorage.getItem('token')
-      if (token) {
-        actions.getProfile()
-        setIsLoggedIn(true)
-      } else {
-        setIsLoggedIn(false)
-        navigate("/")
-      }
+  const { store, actions } = useContext(Context);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const navigate = useNavigate()
 
-  }, []);
 
+
+
+  const updateProgress = async (e) => {
+    e.preventDefault()
+    navigate("/PerfilCliente/updateProgress")
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      actions.getProfile()
+      setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false)
+      navigate("/")
+    }
+
+  }, [])
+
+  const getPlan = async (e) => {
+    e.preventDefault()
+
+    const urlPlan = store.currentUser?.plan.file_url
+    if (urlPlan)
+      window.location.href = urlPlan
+    else
+      setErrorMessage(<p className='text-danger'>Plan not available</p>)
+
+  }
 
   return (
     <div className="container perfil-cliente">
@@ -33,8 +51,9 @@ const PerfilCliente = () => {
               alt="Foto-del-cliente"
               className="foto-cliente"
             />
-            <p className='descarga-aqui'>Descarga aquí tu PLAN</p>
-            <button className="download-button">Download program</button>
+            <button className="download-button mt-4" onClick={getPlan}>Download Plan</button>
+            <button className="download-button mx-4 mt-4" onClick={updateProgress}> Update Progress </button>
+            {errorMessage !== "" ? errorMessage : <></>}
           </div>
 
           <div className="datos-cliente">
@@ -53,11 +72,6 @@ const PerfilCliente = () => {
             <div className='cm'><p>{store.currentUser?.progress.arm} cm</p></div>
             <p className='estadisticas'>Leg size</p>
             <div className='cm'><p>{store.currentUser?.progress.leg} cm</p></div>
-          </div>
-          <div className='boton-cliente'>
-            <Link to="/PerfilCliente/updateProgress">
-              <button className="update-progress">Update Progress</button>
-            </Link>
           </div>
         </div>
       </>)}
