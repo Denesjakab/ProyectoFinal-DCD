@@ -1,10 +1,9 @@
 
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
-import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
-import { FormEmail } from "../component/email.jsx";
+
 
 export const Register = () => {
     const { store, actions } = useContext(Context)
@@ -46,15 +45,14 @@ export const Register = () => {
                         } else {
                             console.log("Error al iniciar sesión después del registro.")
                         }
-                    } else {
-                        console.log("Error en el registro del usuario.")
                     }
                 } catch (error) {
+                    setErrorData(<p className="text-danger">Already registered email.</p>)
                     console.error("Error en el proceso de registro/login:", error)
                 }
             }
         } else {
-            setErrorData(<p className="text-danger">Completa el formulario.</p>)
+            setErrorData(<p className="text-danger">Required fields.</p>)
         }
     };
 
@@ -74,7 +72,7 @@ export const Register = () => {
     return (
         <div className="d-flex justify-content-center home-body">
             <div className="container align-items-center row text-white">
-                <div className=" p-5 col-6 flex-b">
+                <div className=" p-5 col-4 flex-b">
                     <form>
                         <h1 className="pb-5">Welcome!</h1>
 
@@ -93,7 +91,7 @@ export const Register = () => {
                             <input type="password" className="form-control" name="password" id="InputPassword" value={userData.password} onChange={handleChange} placeholder="Password" />
                             {errorData !== "" ? errorData : <></>}
                         </div>
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex justify-content-center">
                             <div className="py-">
                                 <button type="submit" className="btn btn-warning" onClick={sendData}>Join Now!</button>
                             </div>
@@ -107,7 +105,7 @@ export const Register = () => {
                 </div>
 
                 <div className="col-6 align-items-center">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "150%", maxWidth: "150%" }}></img>
+                    <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "125%", maxWidth: "125%" }}></img>
                 </div>
 
             </div>

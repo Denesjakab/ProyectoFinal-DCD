@@ -142,12 +142,41 @@ def login():
     if user:
         check_password = bcrypt.check_password_hash(user.password, str(body['password']))
 
-    if user is None or check_password is False:
+    if user is None or check_password is False or user.is_active is False:
         return jsonify({'msg': 'Usario o contraseña no validos'}), 400
     
     access_token = create_access_token(identity=user.email)
 
     return jsonify({ 'token': access_token, 'role': user.role }), 200
+
+@app.route('/cancel-myself', methods=['GET'])
+@jwt_required()
+def cancel():
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    user.is_active = False
+    db.session.commit()
+
+    return jsonify({'msg': "Cliente desactivado."}), 200
+
+@app.route('/cancel-client/<int:client_id>', methods=['GET'])
+@jwt_required()
+def cancel_client(client_id):
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    client = User.query.get(client_id)
+    if not client:
+        return jsonify({'msg': 'Cliente no encontrado'}), 404
+    
+    client.is_active = False
+    db.session.commit()
+    
+    return jsonify({'Client cancelado': client.serialize()}), 200
 
 
 @app.route('/private', methods=['GET'])
@@ -161,7 +190,7 @@ def protected():
 @jwt_required()
 def get_info_client():
     mail_user = get_jwt_identity()
-    user = User.query.filter_by(email = mail_user).first()
+    user = User.query.filter_by(email=mail_user).first()
     progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
     plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
 
@@ -177,12 +206,11 @@ def get_list_clients():
     if user.role != "trainer":
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
-    list_clients = db.session.query(User, Progress).join(Progress).filter(User.email != mail_user).all()
+    list_clients = db.session.query(User).filter(User.email != mail_user, User.is_active == True).all()
     result = []
-    for user, progress in list_clients:
+    for user in list_clients:
         result.append({
-            "client": user.serialize(),
-            "progress": progress.serialize()
+            "client": user.serialize()
         })
 
     return jsonify(result), 200
@@ -211,6 +239,7 @@ def get_client_info(client_id):
         'Progress': progress_data,
         "Plan": plan_data}), 200
 
+
 @app.route('/profileclient', methods=['GET'])
 @jwt_required()
 def get_profile(): 
@@ -221,6 +250,7 @@ def get_profile():
         return jsonify({'msg':'user not found'}), 404
     
     last_progress = Progress.query.filter_by(user_id = user.id).order_by(Progress.date.desc()).first()
+    last_plan = Plan.query.filter_by(user_id = user.id).order_by(Plan.date.desc()).first()
         
     return jsonify({
         'id': user.id,
@@ -236,6 +266,10 @@ def get_profile():
             'arm': str(last_progress.arm) if last_progress else None,
             'leg': str(last_progress.leg) if last_progress else None,
             'progress_percentage':last_progress.progress_percentage if last_progress else None,
+            'photo_url': last_progress.photo_url if last_progress else None,
+        },
+        'plan': {
+            'file_url': str(last_plan.file_url) if last_plan else None
         }
             
         })
@@ -276,6 +310,7 @@ def first_progress():
         if height <= 0 or weight <= 0 or goal_kg < 0:
             return jsonify ({'msg': 'Los valores de altura peso y kg deben ser mayor que 0'})
         
+        user.age = body['age']
         user.height = height
         progress.weight = weight
         user.goal = goal
@@ -360,6 +395,19 @@ def new_progress():
         'progress_percentage': new_progress.progress_percentage,
         'weight': new_progress.weight
     }), 200
+
+@app.route('/list-progress/<int:client_id>', methods=['GET'])
+@jwt_required()
+def get_list_progress(client_id):
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    progress = db.session.query(Progress).join(User).filter(User.email != mail_user, User.is_active == True, Progress.user_id == client_id).order_by(Progress.date.desc()).first()
+
+    return jsonify(progress.serialize()), 200
 
 
 app.route('/update-progress', methods = ['POST'])

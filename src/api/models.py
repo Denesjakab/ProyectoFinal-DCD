@@ -48,7 +48,7 @@ class Progress(db.Model):
     abdomen = db.Column(db.Numeric(5,2))
     arm = db.Column(db.Numeric(5,2))
     leg = db.Column(db.Numeric(5,2))
-    photo_url = db.Column(db.String(255))
+    photo_url = db.Column(db.String(500))
     progress_percentage = db.Column(db.Integer)
     notes = db.Column(db.String(255))
 
@@ -71,7 +71,7 @@ class Progress(db.Model):
 
         initial_weight = float(initial_progress.weight)
         current_weight = float(self.weight)
-        goal_kg = user.goal_kg
+        goal_kg = float(user.goal_kg)
 
         if user.goal == 'gain':
             if current_weight < initial_weight:
@@ -103,8 +103,6 @@ class Progress(db.Model):
             "progress_percentage": self.progress_percentage,
             "notes": self.notes
         }
-
-
 
 class Plan(db.Model):
     __tablename__ = 'plan'

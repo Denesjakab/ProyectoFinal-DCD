@@ -1,4 +1,4 @@
-.upload-program{
+.upload-program {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
 
 }
 
-.archivo{
+.archivo {
     color: white;
     width: 50%;
     padding: 8px;
@@ -18,7 +18,8 @@
     font-size: 40px;
     margin-top: 50px;
 }
-.sube-archivo{
+
+.sube-archivo {
     width: 200px;
     height: 100px;
     margin: 10px;
@@ -30,4 +31,22 @@
     cursor: pointer;
     font-weight: bold;
     margin-top: 60px;
+}
+
+.fomr-plan {
+    width: 50%;
+    margin-left: 25%;
+    color: white;
+}
+
+#upload-form {
+    width: 50%;
+    margin-left: 35%;
+    color: white;
+}
+
+#upload-form2 {
+    width: 50%;
+    margin-left: 40%;
+    color: white;
 }

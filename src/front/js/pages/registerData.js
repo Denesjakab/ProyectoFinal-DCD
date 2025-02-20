@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext.js";
 import homeImg from "../../img/training-828726_1920.jpg"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";
 import { number } from "prop-types";
@@ -25,7 +25,6 @@ export const RegisterData = () => {
     })
 
     const [errorData, setErrorData] = useState("")
-    const [imageMessage, setImageMessage] = useState("")
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -69,7 +68,7 @@ export const RegisterData = () => {
                 }
             } else setErrorData(<p className="text-danger">Goal weight invalid.</p>)
         } else {
-            setErrorData(<p className="text-danger">Faltan campos obligatorios.</p>)
+            setErrorData(<p className="text-danger">Required fields.</p>)
         }
     }
 
@@ -93,39 +92,80 @@ export const RegisterData = () => {
     }
 
     return (
-        <div className="home-body">
-            <h1 className="d-flex justify-content-center text-white pb-2 ">Welcome!</h1>
+        <div className="home-body box-update">
+            <h1 className="titulo-progress d-flex justify-content-center text-white pb-2 ">Welcome!</h1>
             <p className="d-flex justify-content-center text-white fw-light  pb-3 ">Enter your data to keep better track of your journey</p>
 
-            <div className="d-flex align-items-end container text-white">
-                <div className=" col-6 p-5 ">
+            <div className="row d-flex align-items-end container text-white">
+                <div className=" col-6 px-5">
                     <div className="form-group pb-3">
                         <label className="py-2">Age</label>
-                        <input type="number" className="form-control" name="age" id="ageInput" value={formData.age} onChange={handleChange} placeholder="Enter your age" />
+                        <input type="number" className="form-control medidas bg-white" name="age" id="ageInput" value={formData.age} onChange={handleChange} placeholder="Enter your age" />
                     </div>
                     <div className="form-group pb-3">
                         <label className="py-2">Height*</label>
-                        <input type="number" className="form-control" name="height" id="heightInput" value={formData.height} onChange={handleChange} placeholder="Enter your height" />
+                        <input type="number" className="form-control medidas bg-white" name="height" id="heightInput" value={formData.height} onChange={handleChange} placeholder="Enter your height" />
 
                     </div>
 
                     <div className="form-group pb-3">
                         <label className="py-2">Weight*</label>
-                        <input type="number" className="form-control" name="weight" id="weightInput" value={formData.weight} onChange={handleChange} placeholder="Enter your Weight" />
+                        <input type="number" className="form-control medidas bg-white" name="weight" id="weightInput" value={formData.weight} onChange={handleChange} placeholder="Enter your Weight" />
                     </div>
                     <div className="form-group pb-3">
                         <label className="py-2">Weight Objective*</label>
-                        <select className="form-select text-muted" name="goal" value={formData.goal} onChange={handleChange} placeholder="Weight objective">
+                        <select className="form-select text-muted medidas bg-white" name="goal" value={formData.goal} onChange={handleChange} placeholder="Weight objective">
                             <option value="">-</option>
                             <option value="gain">Gain</option>
                             <option value="lose">Lose</option>
                         </select>                         </div>
                     <div className="form-group pb-3">
                         <label className="py-2">How much weight?*</label>
-                        <input type="number" className="form-control" name="goal_kg" id="goalKgInput" value={formData.goal_kg} onChange={handleChange} placeholder="How much weight?" />
+                        <input type="number" className="form-control medidas bg-white" name="goal_kg" id="goalKgInput" value={formData.goal_kg} onChange={handleChange} placeholder="How much weight?" />
                         {errorData !== "" ? errorData : <></>}
                     </div>
+                </div>
 
+                <div className="col-6 px-5">
+                    <div className="form-group  pb-3">
+                        <label className="py-2">Others</label>
+                        <input type="text" className="form-control medidas bg-white" name="notes" id="notesInput" value={formData.notes} onChange={handleChange} placeholder="Others" />
+                    </div>
+
+                    <div className="form-group pb-3">
+                        <label className="py-2">Waist</label>
+                        <input type="number" className="form-control medidas bg-white" name="waist" id="waistInput" value={formData.waist} onChange={handleChange} placeholder="Enter your waist measurement" />
+                    </div>
+                    <div className="form-group pb-3">
+                        <label className="py-2">Abdomen</label>
+                        <input type="number" className="form-control medidas bg-white" name="abdomen" id="abdomenInput" value={formData.abdomen} onChange={handleChange} placeholder="Enter your abdomen measurement" />
+                    </div>
+
+                    <div className="form-group pb-3">
+                        <label className="py-2">Arm</label>
+                        <input type="number" className="form-control medidas bg-white" name="arm" id="armInput" value={formData.arm} onChange={handleChange} placeholder="Enter your arm measurement" />
+                    </div>
+
+                    <div className="form-group pb-3">
+                        <label className="py-2">Leg</label>
+                        <input type="number" className="form-control medidas bg-white" name="leg" id="legInput" value={formData.leg} onChange={handleChange} placeholder="Enter your leg measurement" />
+                    </div>
+
+                </div>
+            </div>
+            <div className="row d-flex align-items-end">
+                <div className="col-6 px-5">
+                    <form id="upload-form" onSubmit={handleImageUpload}>
+                        <label htmlFor="file">Selecciona una foto:</label>
+                        <input type="file" id="file" name="file" required />
+
+                        <button className="btn btn-warning m-1" type="submit">Subir Imagen</button>
+
+                        <label htmlFor="photo_url">URL:</label>
+                        <input type="text" id="photo_url" name="photo_url" readOnly value={formData.photo_url} />
+                    </form>
+                </div>
+                <div className="col-6 px-5">
                     <div className="d-flex align-items-center pt-5 pb-3">
                         <Link to="/home">
                             <div className="">
@@ -136,45 +176,6 @@ export const RegisterData = () => {
                         <Link to="/">
                             <button className="btn btn-warning  ms-5">Home</button>
                         </Link>
-                    </div>
-                </div>
-
-                <div className="col-6  ">
-                    <div className=" p-5  ">
-
-                        <div className="form-group  pb-3">
-                            <label className="py-2">Others</label>
-                            <input type="text" className="form-control" name="notes" id="notesInput" value={formData.notes} onChange={handleChange} placeholder="Others" />
-                        </div>
-
-                        <div className="form-group pb-3">
-                            <label className="py-2">Waist</label>
-                            <input type="number" className="form-control" name="waist" id="waistInput" value={formData.waist} onChange={handleChange} placeholder="Enter your waist measurement" />
-                        </div>
-                        <div className="form-group pb-3">
-                            <label className="py-2">Abdomen</label>
-                            <input type="number" className="form-control" name="abdomen" id="abdomenInput" value={formData.abdomen} onChange={handleChange} placeholder="Enter your abdomen measurement" />
-                        </div>
-
-                        <div className="form-group pb-3">
-                            <label className="py-2">Arm</label>
-                            <input type="number" className="form-control" name="arm" id="armInput" value={formData.arm} onChange={handleChange} placeholder="Enter your arm measurement" />
-                        </div>
-
-                        <div className="form-group pb-3">
-                            <label className="py-2">Leg</label>
-                            <input type="number" className="form-control" name="leg" id="legInput" value={formData.leg} onChange={handleChange} placeholder="Enter your leg measurement" />
-                        </div>
-                        <form id="upload-form" onSubmit={handleImageUpload}>
-                            <label htmlFor="file">Selecciona una foto:</label>
-                            <input type="file" id="file" name="file" required />
-
-                            <button className="btn btn-warning m-1" type="submit">Subir Imagen</button>
-
-                            <label htmlFor="photo_url">URL:</label>
-                            <input type="text" id="photo_url" name="photo_url" readOnly value={formData.photo_url} />
-                        </form>
-
                     </div>
                 </div>
             </div>

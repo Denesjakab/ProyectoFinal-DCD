@@ -1,5 +1,5 @@
-.perfil-cliente{
-    background-color:rgba(15, 15, 15, 0.992);
+.perfil-cliente {
+    background-color: rgba(15, 15, 15, 0.992);
     color: white;
     text-align: center;
     padding: 20px;
@@ -9,23 +9,25 @@
     max-width: 100%;
     margin: auto;
 }
-.parte-arriba{
+
+.parte-arriba {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around; 
-    align-items: center; 
+    justify-content: space-around;
+    align-items: center;
     gap: 10px;
 }
 
-.info-cliente{
+.info-cliente {
     width: 40%;
     height: 100%;
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
 }
-.datos-cliente{
+
+.datos-cliente {
     width: 40%;
     height: 100%;
     background-color: #1e1e1e;
@@ -35,19 +37,20 @@
     align-items: center;
 }
 
-.boton-cliente{
+.boton-cliente {
     width: 20%;
     height: 100%;
     display: flex;
     align-items: center;
-    
+
 }
 
 .foto-cliente {
     width: 75%;
 }
 
-.download-button, .cancel-button {
+.download-button,
+.cancel-button {
     background-color: #FFD700;
     color: black;
     padding: 10px 20px;
@@ -57,17 +60,16 @@
     font-weight: bold;
 }
 
-.update-progres{
-    width: 300px; 
-    height: 150px;
+
+.update-progres {
+    width: 150px;
+    height: 100px;
     background-color: #FFD700;
     color: black;
-    padding: 10px 20px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-  
 }
 
 .cm {
@@ -81,20 +83,23 @@
     color: aliceblue;
 }
 
-.datos-nomobre, .nombre-cliente {
+.datos-nomobre,
+.nombre-cliente {
     color: #FFD700;
     margin-top: 10px;
 }
-.datos-nombre{
+
+.datos-nombre {
     margin-bottom: 20px;
     margin-top: 5px;
 }
-.estadisticas{
+
+.estadisticas {
     margin-bottom: 0;
     color: white;
 }
 
-.descarga-aqui{
+.descarga-aqui {
     color: white;
 }
 
@@ -103,19 +108,21 @@
     margin: 10px 0;
 }
 
-.header_container{
+.header_container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     margin-bottom: 20px;
 }
-.line{
+
+.line {
     flex-grow: 1;
     height: 10px;
     background-color: #FFD700;
 }
-.header{
+
+.header {
     font-size: 18px;
     font-weight: bold;
     color: yellow;
@@ -123,11 +130,73 @@
     padding: 0 15px;
     white-space: nowrap;
 }
-.programa-actual{
+
+.programa-actual {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.foto-plan{
-    color:white;
+
+.foto-plan {
+    color: white;
+}
+
+.parte-progreso {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.progress-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.barra-progreso {
+    width: 100%;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #b8860b;
+}
+
+.texto-progreso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+}
+
+.relleno-barra {
+    height: 100%;
+    background-color: #b8860b;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.relleno-barra::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-45deg);
+    animation: shine 2.5s infinite linear;
 }

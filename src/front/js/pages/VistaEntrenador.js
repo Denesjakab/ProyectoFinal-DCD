@@ -6,23 +6,20 @@ import { Context } from "../store/appContext.js";
 
 const VistaEntrenador = () => {
 
-
     const { store, actions } = useContext(Context)
     const navigate = useNavigate()
     const getClients = async () => {
         const userToken = localStorage.getItem("token")
         let storeClients = await actions.getClients(userToken)
-        console.log(storeClients)
+
         if (storeClients === 401) {
             navigate("/login")
         }
     }
     useEffect(() => {
-        const userToken = localStorage.getItem("token")
         getClients()
 
-
-    }, [localStorage.getItem("token")])
+    }, [])
 
 
     return (
@@ -31,7 +28,6 @@ const VistaEntrenador = () => {
                 <h1>Your Clients</h1>
 
                 <div className='lista-clientes'>
- front-end-get-clientes
                     {store.clients.map((client, index) => {
                         return (
                             <div className='cliente'
@@ -41,11 +37,15 @@ const VistaEntrenador = () => {
                                 <Link to={`/trainer/cliente/${client.client.id}`}>
                                     <button className='view-details' onClick={() => { actions.setSelectedClient(client) }}>View details</button>
                                 </Link>
-
                             </div>
+
                         )
                     })
                     }
+                </div>
+            </div>
+        </div>)
+}
 
 
 
