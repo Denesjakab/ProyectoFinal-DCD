@@ -1,10 +1,11 @@
-.home-body {
+.body-progress {
    background-color: rgba(15, 15, 15, 0.992);
+   display: flex;
+   align-items: center;
+   width: 50%;
+   margin-left: 25%;
 }
 
-form {
-   width: 50%;
-}
 
 .medidas {
    width: 100%;
@@ -23,7 +24,7 @@ form {
    flex-direction: column;
    align-items: center;
    color: white;
-   background-color: white;
+   background-color: rgba(15, 15, 15, 0.992);
    padding: 30px;
 }
 
@@ -39,14 +40,15 @@ form {
 
 .update {
    width: 50%;
-   height: 70px;
-   border-radius: 10px;
+   height: 6vh;
+   border-radius: 20px;
    background-color: transparent;
    font-size: 16px;
    cursor: pointer;
+   border: none;
    background-color: #FFD700;
    color: black;
-   margin-left: 120px;
+   margin-top: 1vh;
 }
 
 .medidas[type="number"]::-webkit-inner-spin-button,

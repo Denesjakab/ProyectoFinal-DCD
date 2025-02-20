@@ -5,7 +5,7 @@ import Logo from "../../img/logo.png"
 // import { NavbarLogged } from "./navbarLogged";
 import { Context } from "../store/appContext.js";
 
-export const NavbarLogged = ({handleLoggout}) => {
+export const NavbarLogged = ({ handleLoggout }) => {
 
     const { store, actions } = useContext(Context)
 
@@ -16,7 +16,7 @@ export const NavbarLogged = ({handleLoggout}) => {
                 {/* <Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link> */}
-                <img src={Logo} style={{ maxHeight: "5%", maxWidth: "5%" }}></img>
+                <img src={Logo} style={{ maxHeight: "20%", maxWidth: "20%" }}></img>
                 <div className="ml-auto">
                     <Link to="/demo">
                         <button className="btn btn-primary">Check the Context in action</button>
@@ -29,10 +29,10 @@ export const NavbarLogged = ({handleLoggout}) => {
                             Name
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                           
-                                <li><a className="dropdown-item" href="#"
-                                    onClick={handleLoggout}>Logout</a></li>
-                            
+
+                            <li><a className="dropdown-item" href="#"
+                                onClick={handleLoggout}>Logout</a></li>
+
 
                         </ul>
                     </div>

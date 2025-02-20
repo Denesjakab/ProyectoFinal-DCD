@@ -179,7 +179,6 @@ def cancel_client(client_id):
     return jsonify({'Client cancelado': client.serialize()}), 200
 
 
-
 @app.route('/private', methods=['GET'])
 @jwt_required()
 def protected():
@@ -207,12 +206,11 @@ def get_list_clients():
     if user.role != "trainer":
         return jsonify({'msg': 'Usario no autorizado'}), 403
     
-    list_clients = db.session.query(User, Progress).join(Progress).filter(User.email != mail_user, User.is_active == True).all()
+    list_clients = db.session.query(User).filter(User.email != mail_user, User.is_active == True).all()
     result = []
-    for user, progress in list_clients:
+    for user in list_clients:
         result.append({
-            "client": user.serialize(),
-            "progress": progress.serialize()
+            "client": user.serialize()
         })
 
     return jsonify(result), 200
@@ -268,6 +266,7 @@ def get_profile():
             'arm': str(last_progress.arm) if last_progress else None,
             'leg': str(last_progress.leg) if last_progress else None,
             'progress_percentage':last_progress.progress_percentage if last_progress else None,
+            'photo_url': last_progress.photo_url if last_progress else None,
         },
         'plan': {
             'file_url': str(last_plan.file_url) if last_plan else None
@@ -396,6 +395,19 @@ def new_progress():
         'progress_percentage': new_progress.progress_percentage,
         'weight': new_progress.weight
     }), 200
+
+@app.route('/list-progress/<int:client_id>', methods=['GET'])
+@jwt_required()
+def get_list_progress(client_id):
+    mail_user = get_jwt_identity()
+    user = User.query.filter_by(email=mail_user).first()
+
+    if user.role != "trainer":
+        return jsonify({'msg': 'Usario no autorizado'}), 403
+    
+    progress = db.session.query(Progress).join(User).filter(User.email != mail_user, User.is_active == True, Progress.user_id == client_id).order_by(Progress.date.desc()).first()
+
+    return jsonify(progress.serialize()), 200
 
 
 app.route('/update-progress', methods = ['POST'])

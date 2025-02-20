@@ -28,6 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			clients: [],
 
 			selectedClient: [],
+			progress: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -177,7 +178,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-
 			getClients: async (userToken) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/list-clients", {
@@ -208,6 +208,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setSelectedClient: (client) => {
 				setStore({ selectedClient: client });
 			},
+			getProgress: async (clientId) => {
+				const token = localStorage.getItem('token');
+
+				try {
+					const response = await fetch(process.env.BACKEND_URL + `/list-progress/${clientId}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					})
+					if (response.status === 401) {
+						const error = new Error("token invalido")
+						error.statusCode = 401
+						throw error
+					}
+					if (response.status === 403) {
+						throw new Error("usuario no autorizado")
+					}
+					if (!response.ok) {
+						throw new Error("error al obtener los datos")
+					}
+					const data = await response.json()
+					setStore({ progress: data })
+
+					return data
+				} catch (error) {
+					console.log("error al obtener los progresos", error)
+					return error.statusCode
+				}
+			},
+
 
 			firstProgress: async (dataUser) => {
 				const token = localStorage.getItem("token")
@@ -232,15 +264,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
+			updateProgress: async (formData) => {
+				const token = localStorage.getItem('token');
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/new-progress", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+						body: JSON.stringify(formData)
+					});
+
+					if (resp.status === 401) {
+						throw Error("Problemas con el token enviado.")
+					}
+
+					const result = await resp.json()
+					return result
+
+				} catch (error) {
+					alert('Submit update failed')
+					console.log(error)
+				};
+
+			},
+
 			logout: async () => {
 				localStorage.removeItem("token")
-				setStore({ clients: []})
+				setStore({ clients: [] })
 			},
-			
-
-// 		}
-// 	};
-// };
 
 			newPlan: async (dataPlan) => {
 				const token = localStorage.getItem("token")
@@ -287,42 +342,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null
 				}
 			},
-        
-			updateProgress: async () => {
-				const token = localStorage.getItem('token');
 
-				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/new-progress", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${token}`,
-						},
-						body: JSON.stringify(formData)
-					});
-
-					const result = await resp.json();
-
-					if (resp.ok){
-						alert('Progress updated sucessfully')
-						actions.getProfile()
-						
-						return result
-
-						
-					} else{
-						const errorData = await resp.json();
-						throw new Error(errorData.msg || 'update failed');
-					}
-					}catch (error){
-						alert('Submit update failed')
-						console.log(error)
-
-				};
-
-		},
 		}
 	}
 }
 
-	export default getState
+export default getState

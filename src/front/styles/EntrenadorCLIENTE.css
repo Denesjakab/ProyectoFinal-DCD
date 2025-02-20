@@ -11,7 +11,7 @@
 .datos-especificos {
     color: white;
     font-size: 30px;
-    margin-right: 80px;
+    margin-right: 100px;
 }
 
 #titulo-especifico {
@@ -21,7 +21,7 @@
 #fotoPerfil {
     max-width: 50%;
     max-height: auto;
-    margin-left: 200px;
+    margin-left: 40%;
     border-radius: 30px;
     /* margin: 10px; */
 }

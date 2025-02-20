@@ -31,7 +31,13 @@ const UploadClientProgram = () => {
   const sendData = async (e) => {
     e.preventDefault()
 
-    const client = store.selectedClient.client
+    const client = store.selectedClient?.client
+
+    if (!client) {
+      setErrorData(<p className="text-danger">No hay cliente seleccionado.</p>)
+      return
+    }
+
     if (plan_url.plan_url && client) {
       const planData = { 'user_id': client.id, 'file_url': plan_url.plan_url }
       const registerData = await actions.newPlan(planData)
@@ -44,28 +50,31 @@ const UploadClientProgram = () => {
   }
 
   return (
-    <>
+    <div className="form-plan">
       <form id="upload-form" onSubmit={handleFileUpload}>
-        <label htmlFor="file">Seleccionar Plan:</label>
-        <input type="file" id="file" name="file" required />
-
+        <div className="my-3">
+          <label htmlFor="file">Seleccionar Plan:</label>
+          <div className="mx-1 mt-3">
+            <input type="file" id="file" name="file" required />
+          </div>
+        </div>
         <button className="btn btn-warning m-1" type="submit">Subir Plan</button>
 
         <label htmlFor="photo_url">URL:</label>
         <input type="text" id="photo_url" name="photo_url" readOnly value={plan_url.plan_url || ""} />
       </form>
-      <div className="d-flex align-items-center pt-5 pb-3">
+      <div className="d-flex align-items-center pt-5 pb-3 mb-5" id="upload-form2">
         <Link to="/home">
-          <div className="">
-            <button type="submit" className="btn btn-warning " onClick={sendData}>Send!</button>
+          <div>
+            <button type="submit" className="btn btn-warning" onClick={sendData}>Send!</button>
           </div>
 
         </Link>
         <Link to="/trainer">
-          <button className="btn btn-warning  ms-5">Home</button>
+          <button className="btn btn-warning ms-5">Home</button>
         </Link>
       </div>
-    </>
+    </div>
   )
 }
 

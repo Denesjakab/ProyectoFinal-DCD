@@ -35,15 +35,11 @@ export const Login = () => {
             console.log("Faltan datos. Completa el formulario.")
         }
     }
-    useEffect(() => {
-        if (store.email === "" && store.password === "") {
-            setUserData({ email: "", password: "" })
-        }
-    }, [store.email, store.password])
+
     return (
         <div className=" d-flex justify-content-center home-body">
             <div className=" d-flex container align-items-center row text-white">
-                <div className=" p-5 col-6 flex-b">
+                <div className=" p-5 col-4 flex-b">
                     <form>
                         <h1 className="pb-5">"Welcome Back!"</h1>
                         <div className="form-group pb-5">
@@ -74,7 +70,7 @@ export const Login = () => {
                     </form>
                 </div>
                 <div className="col-6 align-items-center">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "150%", maxWidth: "150%" }}></img>
+                    <img src="https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_1280.jpg" style={{ maxHeight: "125%", maxWidth: "125%" }}></img>
                 </div>
             </div>
         </div>

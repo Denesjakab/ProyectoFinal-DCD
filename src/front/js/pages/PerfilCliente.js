@@ -9,9 +9,6 @@ const PerfilCliente = () => {
   const [errorMessage, setErrorMessage] = useState("")
   const navigate = useNavigate()
 
-
-
-
   const updateProgress = async (e) => {
     e.preventDefault()
     navigate("/PerfilCliente/updateProgress")
@@ -45,9 +42,16 @@ const PerfilCliente = () => {
       {isLoggedIn && (<>
         <div className="parte-arriba">
           <div className="info-cliente">
+            <div className='parte-progreso'>
+              <p className='progress-label'>Your Progress:</p>
+              <div className='barra-progreso'>
+                <div className='relleno-barra' style={{ width: `${store.currentUser?.progress?.progress_percentage || 0}%` }}></div>
+                <div className='texto-progreso'>{store.currentUser?.progress?.progress_percentage || 0}%</div>
+              </div>
+            </div>
             <h3 className='nombre-cliente'>{store.currentUser?.name}</h3>
             <img
-              src="https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src={store.currentUser?.progress.photo_url || 'https://images.pexels.com/photos/8401818/pexels-photo-8401818.jpeg?auto=compress&cs=tinysrgb&w=600"'}
               alt="Foto-del-cliente"
               className="foto-cliente"
             />
@@ -75,6 +79,7 @@ const PerfilCliente = () => {
           </div>
         </div>
       </>)}
+
       <div className="header_container">
         <div className="line"></div>
         <div className="header">
@@ -90,9 +95,6 @@ const PerfilCliente = () => {
           <button className="cancel-button">Cancel my gym membership</button>
         </Link>
       </div>
-
-
-
     </div>
   );
 };

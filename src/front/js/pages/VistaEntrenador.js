@@ -6,23 +6,20 @@ import { Context } from "../store/appContext.js";
 
 const VistaEntrenador = () => {
 
-
     const { store, actions } = useContext(Context)
     const navigate = useNavigate()
     const getClients = async () => {
         const userToken = localStorage.getItem("token")
         let storeClients = await actions.getClients(userToken)
-        console.log(storeClients)
+
         if (storeClients === 401) {
             navigate("/login")
         }
     }
     useEffect(() => {
-        const userToken = localStorage.getItem("token")
         getClients()
 
-
-    }, [localStorage.getItem("token")])
+    }, [])
 
 
     return (
@@ -47,9 +44,10 @@ const VistaEntrenador = () => {
                     }
                 </div>
             </div>
-        </div>)}
+        </div>)
+}
 
 
 
 
-    export default VistaEntrenador
+export default VistaEntrenador

@@ -35,14 +35,11 @@ const UpdateProgress = () => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token')
-    if (!token) {
-      alert("You Have to log IN");
-      return;
-    } else
-      actions.updateProgress(formData, actions);
-  };
+    e.preventDefault()
+
+    await actions.updateProgress(formData)
+    navigate('/perfilcliente')
+  }
 
   const handleChange = (e) => {
     if (e.target.type === 'file') {
@@ -54,39 +51,62 @@ const UpdateProgress = () => {
         ...formData, [e.target.name]: e.target.value
       });
     }
-  };
+  }
+
+  const handleImageUpload = async (e) => {
+    e.preventDefault()
+
+    const file = e.target.file.files[0]
+    if (!file) {
+      console.log("Por favor, selecciona una imagen.")
+      return
+    }
+
+    const imageUrl = await actions.uploadFile(file)
+
+    if (imageUrl) {
+      setFormData({ ...formData, photo_url: imageUrl })
+    } else {
+      console.log("Error al subir la imagen.")
+    }
+  }
 
   return (
-    <div className="home-body box-update text-white">
+    <div className="body-progress box-update text-white">
       <h1 className="titulo-progress">Track Your Progress!</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="" onSubmit={handleSubmit}>
         <p className="sizes">Weight</p>
-        <input className="medidas" type="number" placeholder="kg" value={formData.weight} onChange={handleChange} />
+        <input className="medidas" type="number" name='weight' placeholder="kg" value={formData.weight} onChange={handleChange} />
 
         <p className="sizes">Waist size</p>
-        <input className="medidas" type="number" placeholder="cm" value={formData.waist} onChange={handleChange} />
+        <input className="medidas" type="number" name='waist' placeholder="cm" value={formData.waist} onChange={handleChange} />
 
         <p className="sizes">Abdominal size</p>
-        <input className="medidas" type="number" placeholder="cm" value={formData.abdomen} onChange={handleChange} />
+        <input className="medidas" type="number" name='abdomen' placeholder="cm" value={formData.abdomen} onChange={handleChange} />
 
         <p className="sizes">Arm size</p>
-        <input className="medidas" type="number" placeholder="cm" value={formData.arm} onChange={handleChange} />
+        <input className="medidas" type="number" name='arm' placeholder="cm" value={formData.arm} onChange={handleChange} />
 
         <p className="sizes">Leg size</p>
-        <input className="medidas" type="number" placeholder="cm" value={formData.leg} onChange={handleChange} />
-
-        <p className="sizes">Post a picture of your progress</p>
-        <input className="medidas" type="file" placeholder="post your progress photo" onChange={handleChange} />
+        <input className="medidas" type="number" name='leg' placeholder="cm" value={formData.leg} onChange={handleChange} />
 
         <p className="sizes">Notes</p>
-        <textarea className="medidas" placeholder="Notes about your progress" value={formData.notes} onChange={handleChange} />
-        <div className='d-flex justify-content-center'>
-          <button className="update btn" type="submit">
+        <textarea className="medidas" placeholder="Notes about your progress" name='notes' value={formData.notes} onChange={handleChange} />
+        <div className="d-flex justify-content-center">
+          <button className="update" type="submit">
             Update Progress
           </button>
         </div>
+      </form>
+      <form id="upload-form" onSubmit={handleImageUpload}>
+        <label htmlFor="file">Selecciona una foto:</label>
+        <input type="file" id="file" name="file" required />
 
+        <button className="btn btn-warning m-1" type="submit">Subir Imagen</button>
+
+        <label htmlFor="photo_url">URL:</label>
+        <input type="text" id="photo_url" name="photo_url" readOnly value={formData.photo_url} />
       </form>
     </div>
   );
