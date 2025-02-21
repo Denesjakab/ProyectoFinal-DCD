@@ -113,14 +113,14 @@ export const RegisterData = () => {
                         <input type="number" className="form-control medidas bg-white" name="weight" id="weightInput" value={formData.weight} onChange={handleChange} placeholder="Enter your Weight" />
                     </div>
                     <div className="form-group pb-3">
-                        <label className="py-2">Weight Objective*</label>
+                        <label className="py-2">Objective*</label>
                         <select className="form-select text-muted medidas bg-white" name="goal" value={formData.goal} onChange={handleChange} placeholder="Weight objective">
                             <option value="">-</option>
                             <option value="gain">Gain</option>
                             <option value="lose">Lose</option>
                         </select>                         </div>
                     <div className="form-group pb-3">
-                        <label className="py-2">How much weight?*</label>
+                        <label className="py-2">Your Goal Weight:</label>
                         <input type="number" className="form-control medidas bg-white" name="goal_kg" id="goalKgInput" value={formData.goal_kg} onChange={handleChange} placeholder="How much weight?" />
                         {errorData !== "" ? errorData : <></>}
                     </div>
