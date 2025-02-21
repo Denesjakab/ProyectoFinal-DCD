@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
-import homeImg from "../../img/training-828726_1920.jpg"
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../styles/register.css";
 import { FormEmail } from "../component/email.jsx";

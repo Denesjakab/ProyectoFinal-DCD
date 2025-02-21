@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+
 import "../../styles/home.css";
-import homeImg from "../../img/training-828726_1920.jpg"
+
 import homeImgTwo from "../../img/training-828741_1280.jpg"
 import { Card } from "../component/card.jsx";
 import { Link, useParams } from "react-router-dom";
