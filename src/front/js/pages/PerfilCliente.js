@@ -31,7 +31,7 @@ const PerfilCliente = () => {
 
     const urlPlan = store.currentUser?.plan.file_url
     if (urlPlan)
-      window.location.href = urlPlan
+      window.open(urlPlan, "_blank")
     else
       setErrorMessage(<p className='text-danger'>Plan not available</p>)
 
@@ -40,6 +40,13 @@ const PerfilCliente = () => {
   return (
     <div className="container perfil-cliente">
       {isLoggedIn && (<>
+        <div className="header_container">
+          <div className="line"></div>
+          <div className="header">
+            Current Program
+          </div>
+          <div className="line"></div>
+        </div>
         <div className="parte-arriba">
           <div className="info-cliente">
             <div className='parte-progreso'>
@@ -81,16 +88,10 @@ const PerfilCliente = () => {
       </>)}
 
       <div className="header_container">
-        <div className="line"></div>
-        <div className="header">
-          Current Program
-        </div>
-        <div className="line"></div>
+        <div className="line mt-3"></div>
       </div>
 
       <div className="programa-actual">
-        <p className='foto-plan'>Foto del plan actual</p>
-        <img src="https://images.pexels.com/photos/5387262/pexels-photo-5387262.jpeg?auto=compress&cs=tinysrgb&w=600" alt="programa-actual" className="current-plan" />
         <Link to="/perfilcliente/Cancelplan">
           <button className="cancel-button">Cancel my gym membership</button>
         </Link>

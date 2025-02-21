@@ -15,6 +15,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from flask_cors import CORS
 import cloudinary
 import cloudinary.uploader
+import cloudinary.api
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -489,8 +490,8 @@ def upload_file():
     if not file:
         return jsonify({"error": "No se ha proporcionado un archivo"}), 400
 
+
     try:
-        # Subir el archivo a Cloudinary
         upload_result = cloudinary.uploader.upload(file)
         return jsonify({"url": upload_result["secure_url"]}), 200
     except Exception as e:
