@@ -1,3 +1,4 @@
+--upgrade pip
 -i https://pypi.org/simple
 pip>=23.0
 setuptools>=65.0
