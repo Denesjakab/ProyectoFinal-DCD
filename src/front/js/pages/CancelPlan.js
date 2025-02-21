@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
 import "../../styles/CancelPlan.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Context } from "../store/appContext";
 
 const CancelPlan = () => {
   const { store, actions } = useContext(Context);
-
+  const navigate = useNavigate()
   const sendCancel = async (e) => {
     e.preventDefault()
 
+
     try {
       await actions.cancelMyMember()
+      actions.logout()
+      navigate('/')
 
     } catch (error) {
       console.error("Error en el proceso de cancelación:", error)
