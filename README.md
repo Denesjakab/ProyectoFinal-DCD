@@ -1,6 +1,6 @@
 # 🏋️‍♂️ Personal Trainer – Personal Trainer Management Platform
 
-**FitManager** is a web platform designed to help personal trainers manage their clients more efficiently. It allows trainers to assign workout plans, track progress, and stay in close communication with their clients.
+**Personal Trainer** is a web platform designed to help personal trainers manage their clients more efficiently. It allows trainers to assign workout plans, track progress, and stay in close communication with their clients.
 
 ---
 
